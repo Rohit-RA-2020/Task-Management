@@ -1,4 +1,4 @@
-import { Client, Account } from "appwrite";
+import { Client, Account, Models, ID } from "appwrite";
 
 class AppwriteConfig {
     //field 
@@ -12,7 +12,15 @@ class AppwriteConfig {
     }
 
     googlelog(): void {
-        this.account.createOAuth2Session('google', 'http://localhost:3000/login')
+        this.account.createOAuth2Session('google', 'http://localhost:3000/landing')
+    }
+
+    emailLogin(email:string, password:string): Promise<Models.Session> {
+        return this.account.createEmailSession(email, password);
+    }
+
+    magicUrlLogin(email:string): void {
+        this.account.createMagicURLSession(ID.unique(), email, 'http://localhost:3000/landing')
     }
 }
 

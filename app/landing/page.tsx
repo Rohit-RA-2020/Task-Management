@@ -16,7 +16,7 @@ export default function Landing() {
                         src={Icon}
                         height={200}
                         width={200}
-                        alt="Follow us on Twitter"
+                        alt="Product Logo"
                     />
                     <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
                         <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/landing">First Link</Link>
