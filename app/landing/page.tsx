@@ -1,5 +1,5 @@
 'use client';
-import Body from "./body"
+import Body from "./landing"
 import Image from 'next/image';
 import Icon from "../../public/logo/logo-transparent-svg.svg";
 import { GoBroadcast } from "react-icons/go";

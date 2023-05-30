@@ -12,14 +12,26 @@ class AppwriteConfig {
     }
 
     googlelog(): void {
-        this.account.createOAuth2Session('google', 'http://localhost:3000/landing')
+        try {
+            this.account.createOAuth2Session('google', 'http://localhost:3000/landing')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    emailLogin(email:string, password:string): Promise<Models.Session> {
+    emailSignUp(name: string, email: string, password: string):void {
+        try {
+            this.account.create(ID.unique(), email, password, name)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    emailLogin(email: string, password: string): Promise<Models.Session> {
         return this.account.createEmailSession(email, password);
     }
 
-    magicUrlLogin(email:string): void {
+    magicUrlLogin(email: string): void {
         this.account.createMagicURLSession(ID.unique(), email, 'http://localhost:3000/landing')
     }
 }

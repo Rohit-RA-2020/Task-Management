@@ -17,18 +17,23 @@ export default function LoginComponent() {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
             <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-                <Image src="/../public/logo/logo-transparent-png.png" alt='company-logo' width={200} height={200} className='align-items-center mx-auto my-10'/>
+                <Image src="/../public/logo/logo-transparent-png.png" alt='company-logo' width={200} height={200} className='align-items-center mx-auto my-10' />
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                     <div className="px-5 py-7">
+                        <label className="font-semibold text-sm text-gray-600 pb-1 block">Name</label>
+                        <input type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
                         <label className="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
                         <input type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
                         <label className="font-semibold text-sm text-gray-600 pbtext-1 block">Password</label>
                         <input type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
                         <div className="w-full">
                             <button className="button mx-auto">
-                                <span>Sign in</span>
+                                <span>Sign up</span>
                             </button>
                         </div>
+                    </div>
+                    <div className="text-grey-700 mx-auto my-5 flex align-items-center justify-evenly">
+                        Or
                     </div>
                     <div className="p-5">
                         <div className="grid grid-cols-3 gap-1">
