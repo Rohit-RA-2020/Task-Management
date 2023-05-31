@@ -1,6 +1,6 @@
 import MagicUrl from "./magic";
 
-export default function () {
+export default function Magic() {
     return (
         <MagicUrl />
     )
