@@ -62,7 +62,7 @@ class AppwriteConfig {
 
     googlelog(): void {
         try {
-            this.account.createOAuth2Session('google', 'https://eventally.vercel.app/landing')
+            this.account.createOAuth2Session('google', 'https://eventally.vercel.app/landing', '', [])
         } catch (error) {
             console.log(error)
         }
