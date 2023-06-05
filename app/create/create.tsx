@@ -1,68 +1,249 @@
 "use client";
 
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import AppwriteConfig from '../constants/appwrite_config';
 
-interface EventFormData {
-  title: string;
-  date: Date;
-  location: string;
-  description: string;
-}
+const EventForm = () => {
+  const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [techFocused, setTechFocused] = useState('');
+  const [targetAudience, setTargetAudience] = useState('');
+  const [numAttendees, setNumAttendees] = useState(0);
+  const [ticketPrice, setTicketPrice] = useState(0);
+  const [venue, setVenue] = useState('');
+  const [talksSpeakers, setTalksSpeakers] = useState('');
+  const [sponsors, setSponsors] = useState('');
+  const [requiresApproval, setRequiresApproval] = useState(false);
+  const [banner, setBanner] = useState<File | null>(null);
 
-const CreateEventForm: React.FC = () => {
-  const [formData, setFormData] = useState<EventFormData>({
-    title: '',
-    date: new Date(),
-    location: '',
-    description: '',
-  });
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    const updatedValue = name === 'date' ? new Date(value) : value;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: updatedValue,
-    }));
+
+    const appwriteConfig = new AppwriteConfig();
+
+    appwriteConfig.createEvent(eventName, eventDate, techFocused, numAttendees, ticketPrice, venue, talksSpeakers, sponsors, requiresApproval, shortDescription, targetAudience)
+
+    // Log the form data
+    // console.log({
+    //   eventName,
+    //   eventDate,
+    //   shortDescription,
+    //   techFocused,
+    //   targetAudience,
+    //   numAttendees,
+    //   ticketPrice,
+    //   venue,
+    //   talksSpeakers,
+    //   sponsors,
+    //   requiresApproval,
+    //   banner,
+    // });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // You can handle form submission here, for example, send the data to a server
-    console.log(formData);
-    // Reset form data
-    setFormData({
-      title: '',
-      date: new Date(),
-      location: '',
-      description: '',
-    });
+  const handleBannerChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setBanner(file);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-        <h1 className="text-2xl font-semibold text-gray-900">Create Event</h1>
-      <div className="mb-4">
-        <label htmlFor="title" className="block text-gray-700 font-semibold mb-1">Title:</label>
-        <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="w-full border-gray-300 border py-2 px-3 rounded-md focus:outline-none focus:border-indigo-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="date" className="block text-gray-700 font-semibold mb-1">Date:</label>
-        <input type="date" id="date" name="date" value={formData.date.toISOString().substr(0, 10)} onChange={handleChange} className="w-full border-gray-300 border py-2 px-3 rounded-md focus:outline-none focus:border-indigo-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="location" className="block text-gray-700 font-semibold mb-1">Location:</label>
-        <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="w-full border-gray-300 border py-2 px-3 rounded-md focus:outline-none focus:border-indigo-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-gray-700 font-semibold mb-1">Description:</label>
-        <textarea id="description" name="description" value={formData.description} onChange={handleChange} className="w-full border-gray-300 border py-2 px-3 rounded-md focus:outline-none focus:border-indigo-500" />
-      </div>
-      <button type="submit" className="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
-        Create Event
-      </button>
-    </form>
+    <div className="max-w-md mx-auto">
+      <h2 className="text-2xl text-[#DB195A] font-bold mb-4">Create Event</h2>
+
+      <form onSubmit={handleSubmit} className="w-full ">
+        <div className="flex flex-col sm:flex-row  gap-2">
+          <div className=" w-full sm:w-1/2">
+            <label htmlFor="eventName" className="text-gray-700 font-semibold">
+              Event Name:
+            </label>
+            <input
+              id="eventName"
+              type="text"
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+              className="border-2 rounded-md w-full px-3 py-2 mt-1"
+            />
+          </div>
+
+          <div className='w-full sm:w-1/2'>
+            <label htmlFor="eventDate" className="text-gray-700 font-semibold">
+              Event Date:
+            </label>
+            <input
+              type="date"
+              id="eventDate"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
+              className="border-2 rounded-md w-full px-3 py-2 mt-1"
+            />
+          </div>
+
+        </div>
+
+        <div>
+          <label
+            htmlFor="shortDescription"
+            className="text-gray-700 font-semibold"
+          >
+            Short Description (Event Outcome):
+          </label>
+          <input
+            id="shortDescription"
+            type="text"
+            value={shortDescription}
+            onChange={(e) => setShortDescription(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="techFocused" className="text-gray-700 font-semibold">
+            Tech Focused (Name of Techs):
+          </label>
+          <input
+            id="techFocused"
+            type="text"
+            value={techFocused}
+            onChange={(e) => setTechFocused(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="targetAudience"
+            className="text-gray-700 font-semibold"
+          >
+            Target Audience:
+          </label>
+          <select
+            id="targetAudience"
+            value={targetAudience}
+            onChange={(e) => setTargetAudience(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          >
+            <option value="">Select an option</option>
+            <option value="Developers">Developers</option>
+            <option value="Designers">Designers</option>
+            <option value="Marketers">Marketers</option>
+            <option value="Business Owners">Business Owners</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="numAttendees"
+            className="text-gray-700 font-semibold"
+          >
+            Number of Attendees:
+          </label>
+          <input
+            id="numAttendees"
+            type="number"
+            value={numAttendees}
+            onChange={(e) => setNumAttendees(Number(e.target.value))}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="ticketPrice" className="text-gray-700 font-semibold">
+            Ticket Price (If Any):
+          </label>
+          <input
+            id="ticketPrice"
+            type="number"
+            value={ticketPrice}
+            onChange={(e) => setTicketPrice(Number(e.target.value))}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="venue" className="text-gray-700 font-semibold">
+            Venue (InPerson / Virtual):
+          </label>
+          <select
+            id="venue"
+            value={venue}
+            onChange={(e) => setVenue(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          >
+            <option value="">Select an option</option>
+            <option value="InPerson">In Person</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="talksSpeakers"
+            className="text-gray-700 font-semibold"
+          >
+            Talks / Speakers:
+          </label>
+          <input
+            id="talksSpeakers"
+            type="text"
+            value={talksSpeakers}
+            onChange={(e) => setTalksSpeakers(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="sponsors" className="text-gray-700 font-semibold">
+            Sponsors (If any):
+          </label>
+          <input
+            id="sponsors"
+            type="text"
+            value={sponsors}
+            onChange={(e) => setSponsors(e.target.value)}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <div className="col-span-2 flex items-center">
+          <input
+            id="requiresApproval"
+            type="checkbox"
+            checked={requiresApproval}
+            onChange={(e) => setRequiresApproval(e.target.checked)}
+            className="mr-2"
+          />
+          <label
+            htmlFor="requiresApproval"
+            className="text-gray-700 font-semibold"
+          >
+            Requires Approval to Attend
+          </label>
+        </div>
+
+        <div className="col-span-2">
+          <label htmlFor="banner" className="text-gray-700 font-semibold">
+            Banner of Event:
+          </label>
+          <input
+            id="banner"
+            type="file"
+            accept="image/*"
+            onChange={handleBannerChange}
+            className="border-2 rounded-md w-full px-3 py-2 mt-1"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-primary text-white py-2 px-4 mt-4 rounded-md col-span-2"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default CreateEventForm;
+export default EventForm;
+

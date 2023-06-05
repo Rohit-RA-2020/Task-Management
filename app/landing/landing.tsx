@@ -1,4 +1,5 @@
 export default function Body() {
+
     return (
         <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
@@ -44,7 +45,7 @@ export default function Body() {
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
                             <h2 className="title-font font-medium text-3xl text-gray-900">46</h2>
-                            <p className="leading-relaxed">Places</p>
+                            <p className="leading-relaxed">Places </p>
                         </div>
                     </div>
                 </div>

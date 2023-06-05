@@ -5,6 +5,7 @@ import Icon from "../../public/logo/logo-transparent-svg.svg";
 import { GoBroadcast } from "react-icons/go";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AppwriteConfig from '../constants/appwrite_config';
 
 export default function Landing() {
     const router = useRouter();
