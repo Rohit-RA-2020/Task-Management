@@ -30,7 +30,7 @@ export default function LoginComponent() {
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <Image
-          src="/../public/logo/logo-transparent-png.png"
+          src="https://cloud.appwrite.io/v1/storage/buckets/647f7858ca88cc76d7aa/files/647f7863192ee15bdd04/view?project=647449f26e9ca9aadf03&mode=admin"
           alt="company-logo"
           width={200}
           height={200}
