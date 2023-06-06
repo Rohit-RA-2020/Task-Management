@@ -6,6 +6,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { VscWand } from "react-icons/vsc";
 import AppwriteConfig from "../constants/appwrite_config";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginComponent() {
   const router = useRouter();
@@ -13,6 +14,12 @@ export default function LoginComponent() {
     const appwriteConfig = new AppwriteConfig();
     appwriteConfig.googlelog();
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("userInfo") !== null) {
+      router.push("/landing");
+    }
+  })
 
   const githublog = (event: React.MouseEvent<HTMLButtonElement>) => {
     const appwriteConfig = new AppwriteConfig();

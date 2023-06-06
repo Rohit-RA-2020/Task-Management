@@ -12,7 +12,6 @@ class AppwriteConfig {
   user: User = {} as User;
 
   constructor() {
-    console.log(process.env.NEXT_PUBLIC_PROJECTID)
     this.client
       .setEndpoint("https://cloud.appwrite.io/v1")
       .setProject(`${process.env.NEXT_PUBLIC_PROJECTID}`);
@@ -20,7 +19,7 @@ class AppwriteConfig {
 
   googlelog(): void {
     try {
-      this.account.createOAuth2Session(
+      const promise = this.account.createOAuth2Session(
         "google",
         `${process.env.NEXT_PUBLIC_APPURL}/landing`,
         "",
@@ -29,6 +28,7 @@ class AppwriteConfig {
     } catch (error) {
       console.log(error);
     }
+    this.getCurUser();
   }
 
   githublog(): void {
@@ -50,7 +50,7 @@ class AppwriteConfig {
         .get()
         .then((res) => {
           this.user = res;
-          console.log(this.user);
+          localStorage.setItem("userInfo", JSON.stringify(this.user));
         })
         .catch((err) => {
           console.log(err);
@@ -70,6 +70,16 @@ class AppwriteConfig {
 
   emailLogin(email: string, password: string): Promise<Models.Session> {
     return this.account.createEmailSession(email, password);
+  }
+
+  signOut(id: string): boolean {
+    try {
+      this.account.deleteSession(id);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   magicUrlLogin(email: string): void {

@@ -1,4 +1,11 @@
+import { GoBroadcast } from "react-icons/go";
+import "@appwrite.io/pink";
+import { useRouter } from "next/navigation";
+
+
 export default function Body() {
+    
+    const router = useRouter();
 
     return (
         <section className="text-gray-600 body-font">
@@ -7,6 +14,7 @@ export default function Body() {
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Experience hassle free event</h1>
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Welcome to our innovative event management application Event-Ally, where organizing and executing unforgettable events becomes effortless. Streamline your planning process and create extraordinary experiences with our intuitive platform.</p>
                 </div>
+
                 <div className="flex flex-wrap -m-4 text-center">
                     <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
                         <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
@@ -48,6 +56,14 @@ export default function Body() {
                             <p className="leading-relaxed">Places </p>
                         </div>
                     </div>
+                </div>
+                <div className="flex items-center justify-center py-20">
+                    <button className="bg-[#DB195A] py-5 px-8 focus:outline-none hover:bg-[#ab073d] rounded-full" onClick={() => router.push('/create')}>
+                        <div className="flex align-items-center gap-1 justify-center mx-auto">
+                            <GoBroadcast className='text-xl my-auto text-white' />
+                            <p className='text-xl my-1 text-white'>Create Event</p>
+                        </div>
+                    </button>
                 </div>
             </div>
         </section>

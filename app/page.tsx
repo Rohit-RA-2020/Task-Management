@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
 import Image from "next/image";
 import Icon from "../public/logo/logo-transparent-svg.svg";
 import { useRouter } from "next/navigation";
@@ -91,7 +90,14 @@ export default function Home() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <button
                 className="rounded-md bg-[#DB195A] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#DB195A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={() => router.push("/login")}
+                onClick={() => {
+                  if (localStorage.getItem('userInfo') != null) {
+                    router.push("/landing")
+                  } else {
+                    router.push("/login")
+                  }
+                }
+                }
               >
                 Get started
               </button>
