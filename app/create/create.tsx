@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 import AppwriteConfig from '../constants/appwrite_config';
+import { useRouter } from 'next/navigation';
 
 const EventForm = () => {
   const [eventName, setEventName] = useState('');
@@ -16,30 +17,16 @@ const EventForm = () => {
   const [sponsors, setSponsors] = useState('');
   const [requiresApproval, setRequiresApproval] = useState(false);
   const [banner, setBanner] = useState<File | null>(null);
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-
     const appwriteConfig = new AppwriteConfig();
 
     appwriteConfig.createEvent(eventName, eventDate, techFocused, numAttendees, ticketPrice, venue, talksSpeakers, sponsors, requiresApproval, shortDescription, targetAudience, banner || new File([], ''));
+    router.push('/events');
 
-    // Log the form data
-    // console.log({
-    //   eventName,
-    //   eventDate,
-    //   shortDescription,
-    //   techFocused,
-    //   targetAudience,
-    //   numAttendees,
-    //   ticketPrice,
-    //   venue,
-    //   talksSpeakers,
-    //   sponsors,
-    //   requiresApproval,
-    //   banner,
-    // });
   };
 
   const handleBannerChange = (e: ChangeEvent<HTMLInputElement>) => {

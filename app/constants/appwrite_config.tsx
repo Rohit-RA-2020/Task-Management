@@ -1,3 +1,5 @@
+"use client";
+
 import { Client, Account, Models, ID, Databases, Storage } from "appwrite";
 import { User } from "./interface";
 
@@ -5,6 +7,7 @@ class AppwriteConfig {
   databaseId: string = `${process.env.NEXT_PUBLIC_DATABASEID}`;
   activeCollId: string = `${process.env.NEXT_PUBLIC_EVENT_COLLID}`;
   bannerBucketId: string = `${process.env.NEXT_PUBLIC_EVENTBUCKET}`;
+
 
   client: Client = new Client();
   account: Account = new Account(this.client);
@@ -130,7 +133,9 @@ class AppwriteConfig {
             CreatedBy: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
             BannerUrl: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`
           }
-        )
+        ).then((res) => {
+         
+        })
       })
     } catch (error) {
       console.log(error);
