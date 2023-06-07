@@ -23,7 +23,7 @@ const EventForm = () => {
 
     const appwriteConfig = new AppwriteConfig();
 
-    appwriteConfig.createEvent(eventName, eventDate, techFocused, numAttendees, ticketPrice, venue, talksSpeakers, sponsors, requiresApproval, shortDescription, targetAudience)
+    appwriteConfig.createEvent(eventName, eventDate, techFocused, numAttendees, ticketPrice, venue, talksSpeakers, sponsors, requiresApproval, shortDescription, targetAudience, banner || new File([], ''));
 
     // Log the form data
     // console.log({

@@ -14,7 +14,7 @@ export default function Landing() {
 
     useEffect(() => {
         if (localStorage.getItem('userInfo') === null) {
-            router.push("/login")
+            return router.push("/login")
         }
     })
 
@@ -29,8 +29,8 @@ export default function Landing() {
                         alt="Product Logo"
                     />
                     <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                        <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/landing" onClick={() => console.table(JSON.parse(localStorage.getItem('userInfo') || '{}')['$id'])}>My Events</Link>
-                        <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/landing">Find Events</Link>
+                        <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/landing" onClick={() => {}}>My Events</Link>
+                        <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/events" >Find Events</Link>
                         <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">Community</Link>
                         <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">Start Check-In</Link>
                     </nav>

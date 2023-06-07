@@ -4,6 +4,7 @@ import { User } from "./interface";
 class AppwriteConfig {
   databaseId: string = `${process.env.NEXT_PUBLIC_DATABASEID}`;
   activeCollId: string = `${process.env.NEXT_PUBLIC_EVENT_COLLID}`;
+  bannerBucketId: string = `${process.env.NEXT_PUBLIC_EVENTBUCKET}`;
 
   client: Client = new Client();
   account: Account = new Account(this.client);
@@ -25,10 +26,10 @@ class AppwriteConfig {
         "",
         []
       );
+      this.getCurUser();
     } catch (error) {
       console.log(error);
     }
-    this.getCurUser();
   }
 
   githublog(): void {
@@ -39,6 +40,7 @@ class AppwriteConfig {
         "",
         []
       );
+      this.getCurUser();
     } catch (error) {
       console.log(error);
     }
@@ -88,6 +90,7 @@ class AppwriteConfig {
       email,
       `${process.env.NEXT_PUBLIC_APPURL}/landing`
     );
+    this.getCurUser();
   }
 
   createEvent(
@@ -101,31 +104,34 @@ class AppwriteConfig {
     Sponsors: string,
     Approval: boolean,
     Description: string,
-    Audience: string
+    Audience: string,
+    File: File,
   ): void {
-    console.log("Event function called");
-
     try {
-      const promise = this.databases.createDocument(
-        this.databaseId,
-        this.activeCollId,
-        ID.unique(),
-        {
-          EventName: EventName,
-          Date: Date,
-          Tech: Tech,
-          Attendees: Attendees,
-          Price: Price,
-          Venue: Venue,
-          Speakers: Speakers,
-          Sponsors: Sponsors,
-          Approval: Approval,
-          Description: Description,
-          Audience: Audience,
-        }
-      ).then((res) => {
-        console.table(res);
-      });
+      const promise = this.storage.createFile(this.bannerBucketId, ID.unique(), File);
+      promise.then((res) => {
+
+        const promise = this.databases.createDocument(
+          this.databaseId,
+          this.activeCollId,
+          ID.unique(),
+          {
+            EventName: EventName,
+            Date: Date,
+            Tech: Tech,
+            Attendees: Attendees,
+            Price: Price,
+            Venue: Venue,
+            Speakers: Speakers,
+            Sponsors: Sponsors,
+            Approval: Approval,
+            Description: Description,
+            Audience: Audience,
+            CreatedBy: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
+            BannerUrl: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`
+          }
+        )
+      })
     } catch (error) {
       console.log(error);
     }
