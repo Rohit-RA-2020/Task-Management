@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AppwriteConfig from "../constants/appwrite_config";
 import Header from "../components/header";
 import { Models } from "appwrite";
-import {MdOutlinePlace} from 'react-icons/md';
+import { MdOutlinePlace } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 
 export default function EventListing() {
@@ -36,7 +36,7 @@ export default function EventListing() {
     <div>
       <Header />
       <div className="max-w-7xl mx-auto">
-        <p className="text-3xl font-bold mb-2 text-center mx-auto py-10">
+        <p className="text-3xl font-bold mb-2 text-center mx-auto py-5">
           All Active Events
         </p>
         {loader ? (
@@ -45,51 +45,51 @@ export default function EventListing() {
           <div className="py-10">
             {events &&
               events.map((item) => (
-                <div key={item.$id} className="py-10">
-                  <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full">
-                    <img
-                      src={item.BannerUrl}
-                      alt="Event Image"
-                      className="w-full h-56 object-cover object-center"
-                    />
-                    <div className="p-4">
-                      <h2 className="text-3xl font-semibold text-gray-800 mb-2">
-                        {item.EventName}
-                      </h2>
-                      <p className="text-gray-600 text-2xl mb-2">
-                        {item.Description}
-                      </p>
-                      <div className="flex items-center mb-2">
-                        <MdOutlinePlace className="mr-2" size="30" />
-                        <p className="text-gray-500 text-xl">
-                          Type: {item.Venue}
-                        </p>
+                <div key={item.$id} className="py-2">
+                  <section className="text-gray-600 body-font">
+                    <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+                      <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+                        <img
+                          className="object-cover object-center rounded"
+                          alt="hero"
+                          src={item.BannerUrl}
+                        />
                       </div>
-                      <div className="flex items-center mb-4">
-                        <IoIosPeople className="mr-2" size="30"/>
-                        <p className="text-gray-500 text-xl">
-                          Audience: {item.Audience}
+                      <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                        <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                          {item.EventName}
+                        </h1>
+                        <p className="mb-8 leading-relaxed">
+                          {item.Description}
                         </p>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <p className="text-gray-500 text-l">
-                          Date: {item.Date}
-                        </p>
-                        <div>
-                          <button className="bg-[#DB195A] hover:bg-[#881038] text-white font-bold py-2 px-4 rounded mr-2">
+                        <div className="flex items-center mb-2">
+                          <MdOutlinePlace className="mb-8 leading-relaxed" size="30" />
+                          <p className="mb-8 leading-relaxed mx-2">
+                            Type: {item.Venue}
+                          </p>
+                        </div>
+                        <div className="flex items-center mb-2">
+                          <IoIosPeople className="mb-8 leading-relaxed" size="30" />
+                          <p className="mb-8 leading-relaxed mx-2">
+                            Audience: {item.Audience}
+                          </p>
+                        </div>
+                        <div className="flex justify-center">
+                          <button className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg">
                             Register
                           </button>
                           {((JSON.parse(localStorage.getItem("userInfo") || "{}").$id) === item.CreatedBy) ? (
-                            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                             Edit
                           </button>
                           ) : (
                             <div></div>
                           )}
+                          
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </section>
                 </div>
               ))}
           </div>
