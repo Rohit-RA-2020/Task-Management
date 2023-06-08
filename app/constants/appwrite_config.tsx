@@ -114,7 +114,7 @@ class AppwriteConfig {
       const promise = this.storage.createFile(this.bannerBucketId, ID.unique(), File);
       promise.then((res) => {
 
-        const promise = this.databases.createDocument(
+        this.databases.createDocument(
           this.databaseId,
           this.activeCollId,
           ID.unique(),
@@ -133,9 +133,7 @@ class AppwriteConfig {
             CreatedBy: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
             BannerUrl: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`
           }
-        ).then((res) => {
-         
-        })
+        )
       })
     } catch (error) {
       console.log(error);
