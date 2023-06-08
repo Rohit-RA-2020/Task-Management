@@ -8,7 +8,7 @@ class AppwriteConfig {
   activeCollId: string = `${process.env.NEXT_PUBLIC_EVENT_COLLID}`;
   bannerBucketId: string = `${process.env.NEXT_PUBLIC_EVENTBUCKET}`;
 
-
+  
   client: Client = new Client();
   account: Account = new Account(this.client);
   databases: Databases = new Databases(this.client);
@@ -109,35 +109,36 @@ class AppwriteConfig {
     Description: string,
     Audience: string,
     File: File,
-  ): void {
+  ): Promise<String> {
     try {
-      const promise = this.storage.createFile(this.bannerBucketId, ID.unique(), File);
-      promise.then((res) => {
-
-        this.databases.createDocument(
-          this.databaseId,
-          this.activeCollId,
-          ID.unique(),
-          {
-            EventName: EventName,
-            Date: Date,
-            Tech: Tech,
-            Attendees: Attendees,
-            Price: Price,
-            Venue: Venue,
-            Speakers: Speakers,
-            Sponsors: Sponsors,
-            Approval: Approval,
-            Description: Description,
-            Audience: Audience,
-            CreatedBy: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
-            BannerUrl: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`
-          }
-        )
-      })
+     this.storage
+        .createFile(this.bannerBucketId, ID.unique(), File)
+        .then((res) => {
+          this.databases
+            .createDocument(this.databaseId, this.activeCollId, ID.unique(), {
+              EventName: EventName,
+              Date: Date,
+              Tech: Tech,
+              Attendees: Attendees,
+              Price: Price,
+              Venue: Venue,
+              Speakers: Speakers,
+              Sponsors: Sponsors,
+              Approval: Approval,
+              Description: Description,
+              Audience: Audience,
+              CreatedBy: JSON.parse(localStorage.getItem("userInfo") || "{}")
+                .$id,
+              BannerUrl: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`,
+            })
+            .then((res) => {
+              return Promise.resolve("sucess");
+            });
+        });
     } catch (error) {
-      console.log(error);
+      throw error;
     }
+    return Promise.resolve('error');
   }
 }
 

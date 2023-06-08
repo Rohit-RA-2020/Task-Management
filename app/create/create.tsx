@@ -1,20 +1,20 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from 'react';
-import AppwriteConfig from '../constants/appwrite_config';
-import { useRouter } from 'next/navigation';
+import { ChangeEvent, FormEvent, useState } from "react";
+import AppwriteConfig from "../constants/appwrite_config";
+import { useRouter } from "next/navigation";
 
 const EventForm = () => {
-  const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [techFocused, setTechFocused] = useState('');
-  const [targetAudience, setTargetAudience] = useState('');
+  const [eventName, setEventName] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [techFocused, setTechFocused] = useState("");
+  const [targetAudience, setTargetAudience] = useState("");
   const [numAttendees, setNumAttendees] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
-  const [venue, setVenue] = useState('');
-  const [talksSpeakers, setTalksSpeakers] = useState('');
-  const [sponsors, setSponsors] = useState('');
+  const [venue, setVenue] = useState("");
+  const [talksSpeakers, setTalksSpeakers] = useState("");
+  const [sponsors, setSponsors] = useState("");
   const [requiresApproval, setRequiresApproval] = useState(false);
   const [banner, setBanner] = useState<File | null>(null);
   const router = useRouter();
@@ -24,9 +24,26 @@ const EventForm = () => {
 
     const appwriteConfig = new AppwriteConfig();
 
-    appwriteConfig.createEvent(eventName, eventDate, techFocused, numAttendees, ticketPrice, venue, talksSpeakers, sponsors, requiresApproval, shortDescription, targetAudience, banner || new File([], ''));
-    router.push('/events');
-
+    appwriteConfig
+      .createEvent(
+        eventName,
+        eventDate,
+        techFocused,
+        numAttendees,
+        ticketPrice,
+        venue,
+        talksSpeakers,
+        sponsors,
+        requiresApproval,
+        shortDescription,
+        targetAudience,
+        banner || new File([], "")
+      )
+      .then((res) => {
+        if (res == "sucess") {
+          router.push("/events");
+        }
+      });
   };
 
   const handleBannerChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +70,7 @@ const EventForm = () => {
             />
           </div>
 
-          <div className='w-full sm:w-1/2'>
+          <div className="w-full sm:w-1/2">
             <label htmlFor="eventDate" className="text-gray-700 font-semibold">
               Event Date:
             </label>
@@ -65,7 +82,6 @@ const EventForm = () => {
               className="border-2 rounded-md w-full px-3 py-2 mt-1"
             />
           </div>
-
         </div>
 
         <div>
@@ -119,10 +135,7 @@ const EventForm = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="numAttendees"
-            className="text-gray-700 font-semibold"
-          >
+          <label htmlFor="numAttendees" className="text-gray-700 font-semibold">
             Number of Attendees:
           </label>
           <input
@@ -233,4 +246,3 @@ const EventForm = () => {
 };
 
 export default EventForm;
-
