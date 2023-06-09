@@ -127,6 +127,7 @@ class AppwriteConfig {
             .createDocument(this.databaseId, this.activeCollId, ID.unique(), {
               eventname: eventname,
               description: description,
+              url: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`,
               hostname: hostname,
               eventdate: eventdate,
               email: email,
@@ -146,16 +147,18 @@ class AppwriteConfig {
               sponsor3: sponsor3,
               approval: approval,
               food: food,
-              url: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`,
+              created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id
             })
             .then((res) => {
+              console.log(res)
               return Promise.resolve("sucess");
             });
         });
     } catch (error) {
+      console.log("error block 1");
       throw error;
     }
-    return Promise.resolve("error");
+    return Promise.resolve("sucess");
   }
 }
 

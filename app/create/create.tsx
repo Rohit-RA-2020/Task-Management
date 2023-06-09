@@ -12,16 +12,16 @@ const CreateEventPage = () => {
   const [hostname, setHostName] = useState("");
   const [eventdate, setEventDate] = useState("");
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("India");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postal, setPostal] = useState("");
-  const [audience, setAudience] = useState("");
-  const [type, setType] = useState("");
+  const [audience, setAudience] = useState("Developers");
+  const [type, setType] = useState("In Person");
   const [attendees, setAttendees] = useState(0);
   const [price, setPrice] = useState(0);
-  const [tech, setTech] = useState("");
+  const [tech, setTech] = useState("Yes");
   const [agenda, setAgenda] = useState("");
   const [sponsor1, setSponsor1] = useState("");
   const [sponsor2, setSponsor2] = useState("");
@@ -64,6 +64,9 @@ const CreateEventPage = () => {
       .then((res) => {
         if (res == "sucess") {
           router.push("/events");
+        } else {
+          // show error dialog
+          console.log(res);
         }
       });
   };
