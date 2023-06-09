@@ -6,12 +6,15 @@ import Header from "../components/header";
 import { Models } from "appwrite";
 import { MdOutlinePlace } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export default function EventListing() {
   const appwriteConfig = new AppwriteConfig();
 
   const [events, setEvents] = useState<Models.Document[]>();
   const [loader, setLoader] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     setLoader(true);
@@ -75,7 +78,9 @@ export default function EventListing() {
                           </p>
                         </div>
                         <div className="flex justify-center">
-                          <button className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg">
+                          <button className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg" onClick={() => {
+                            router.push(`/events/${item.$id}`)
+                          }}>
                             Register
                           </button>
                           {((JSON.parse(localStorage.getItem("userInfo") || "{}").$id) === item.CreatedBy) ? (
