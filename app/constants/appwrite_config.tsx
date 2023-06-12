@@ -2,22 +2,51 @@
 
 import { Client, Account, Models, ID, Databases, Storage } from "appwrite";
 import { User } from "./interface";
+import sdk, { Permission, Role } from "node-appwrite";
+
+class ServerConfig {
+  client: sdk.Client = new sdk.Client();
+  regDb: string = `${process.env.NEXT_PUBLIC_REGDB}`;
+  databases: sdk.Databases = new sdk.Databases(this.client);
+  key: string = `${process.env.NEXT_PUBLIC_DBKEY}`;
+
+  constructor () {
+    this.client
+    .setEndpoint("https://cloud.appwrite.io/v1")
+    .setProject("647449f26e9ca9aadf03")
+    .setKey(this.key);
+  }
+
+  createColl(id: string, name: string) {
+    this.databases.createCollection(this.regDb, id, name, [
+      Permission.read(Role.any()),                  // Anyone can view this document
+      Permission.update(Role.any()),      // Writers can update this document
+      Permission.create(Role.any()),       // Admins can update this document
+      Permission.delete(Role.any()),        // Admins can delete this document
+  ]).then((res) => {
+    this.databases.createStringAttribute(this.regDb, id, "name", 50, false);
+    this.databases.createStringAttribute(this.regDb, id, "email", 50, false)
+  });
+  }
+}
 
 class AppwriteConfig {
   databaseId: string = `${process.env.NEXT_PUBLIC_DATABASEID}`;
   activeCollId: string = `${process.env.NEXT_PUBLIC_EVENT_COLLID}`;
   bannerBucketId: string = `${process.env.NEXT_PUBLIC_EVENTBUCKET}`;
+  regDbId: string = `${process.env.NEXT_PUBLIC_REGDB}`;
 
   client: Client = new Client();
   account: Account = new Account(this.client);
   databases: Databases = new Databases(this.client);
+  regDb: Databases = new Databases(this.client);
   storage: Storage = new Storage(this.client);
   user: User = {} as User;
 
   constructor() {
     this.client
       .setEndpoint("https://cloud.appwrite.io/v1")
-      .setProject(`${process.env.NEXT_PUBLIC_PROJECTID}`);
+      .setProject("647449f26e9ca9aadf03");
   }
 
   googlelog(): void {
@@ -147,10 +176,13 @@ class AppwriteConfig {
               sponsor3: sponsor3,
               approval: approval,
               food: food,
-              created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id
+              created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
+              registrations: []
             })
             .then((res) => {
-              console.log(res)
+              const serverConfig = new ServerConfig();
+              serverConfig.createColl(res.$id, eventname);
+              console.log(res);
               return Promise.resolve("sucess");
             });
         });
