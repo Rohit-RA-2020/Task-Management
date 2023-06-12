@@ -135,7 +135,9 @@ export default function Event({ params }: { params: { event: string } }) {
                             email: JSON.parse(localStorage.getItem("userInfo") || "").email,
                           }
                           
-                        );
+                        ).then((res) => {
+                          router.push("/events/sucessreg");
+                        });
                       });
                     }}
                   >

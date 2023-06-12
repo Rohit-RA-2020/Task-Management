@@ -84,8 +84,10 @@ export default function EventListing() {
                             Register
                           </button>
                           {((JSON.parse(localStorage.getItem("userInfo") || "{}").$id) === item.created) ? (
-                            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-                            Edit
+                            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg" onClick={() => {
+                              router.push(`/stats/${item.$id}`)
+                            }}>
+                            View Stats
                           </button>
                           ) : (
                             <div></div>
