@@ -6,6 +6,8 @@ import AppwriteConfig from "../../constants/appwrite_config";
 
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
+import swal from 'sweetalert';
+
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -144,8 +146,12 @@ export default function Event({ params }: { params: { event: string } }) {
                     Register
                   </button>
                 )}
-                <a href={`mailto:${docs && docs["email"]}`}>
-                  <button className="bg-[#F3F4F6] text-black font-bold py-2 px-5 rounded">
+                <a>
+                  <button className="bg-[#F3F4F6] text-black font-bold py-2 px-5 rounded" onClick={() => {
+                      return swal("Good job!", "You can contact host", "success", {
+                        
+                      });
+                    }}>
                     Contact Host
                   </button>
                 </a>
