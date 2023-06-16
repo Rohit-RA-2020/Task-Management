@@ -10,8 +10,8 @@ import { useEffect } from "react";
 
 export default function LoginComponent() {
   const router = useRouter();
+  const appwriteConfig = new AppwriteConfig();
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const appwriteConfig = new AppwriteConfig();
     appwriteConfig.googlelog();
   };
 
@@ -19,10 +19,9 @@ export default function LoginComponent() {
     if (localStorage.getItem("userInfo") !== null) {
       router.push("/landing");
     }
-  })
+  });
 
   const githublog = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const appwriteConfig = new AppwriteConfig();
     appwriteConfig.githublog();
   };
 

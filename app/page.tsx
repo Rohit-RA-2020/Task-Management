@@ -89,7 +89,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <button
-                className="rounded-md bg-[#DB195A] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#DB195A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-[#DB195A] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#990e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => {
                   if (localStorage.getItem('userInfo') != null) {
                     router.push("/landing")

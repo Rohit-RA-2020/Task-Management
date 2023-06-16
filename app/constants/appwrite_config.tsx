@@ -146,7 +146,6 @@ class AppwriteConfig {
     sponsor2: string,
     sponsor3: string,
     approval: string,
-    food: string
   ): Promise<String> {
     try {
       this.storage
@@ -175,7 +174,6 @@ class AppwriteConfig {
               sponsor2: sponsor2,
               sponsor3: sponsor3,
               approval: approval,
-              food: food,
               created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
               registrations: []
             })

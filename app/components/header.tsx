@@ -12,14 +12,16 @@ export default function Header() {
     return (
         <header className="text-gray-400 bg-white body-font">
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <Link href="/landing">
                 <Image
                     src={Icon}
                     height={200}
                     width={200}
                     alt="Product Logo"
                 />
+                </Link>
                 <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                    <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/landing" onClick={() => { }}>My Events</Link>
+                    <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/myevents">My Events</Link>
                     <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/events" >Find Events</Link>
                     <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">Community</Link>
                     <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">Start Check-In</Link>

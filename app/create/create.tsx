@@ -27,7 +27,6 @@ const CreateEventPage = () => {
   const [sponsor2, setSponsor2] = useState("");
   const [sponsor3, setSponsor3] = useState("");
   const [approval, setApproval] = useState("");
-  const [food, setFood] = useState("");
 
   const router = useRouter();
 
@@ -59,7 +58,6 @@ const CreateEventPage = () => {
         sponsor2,
         sponsor3,
         approval,
-        food
       )
       .then((res) => {
         if (res == "sucess") {
@@ -539,14 +537,6 @@ const CreateEventPage = () => {
           </div>
 
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Miscellaneous
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
-              A bit more information, which would help you ace your event and
-              you are all set
-            </p>
-
             <div className="mt-10 space-y-10">
               <fieldset>
                 <legend className="text-sm font-semibold leading-6 text-gray-900">
@@ -587,81 +577,6 @@ const CreateEventPage = () => {
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       No
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="text-sm font-semibold leading-6 text-gray-900">
-                  Swags & Food
-                </legend>
-                <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Will participants get some awesome swags and food from your
-                  side?
-                </p>
-                <div className="mt-6 space-y-6">
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="food"
-                      name="swagfood"
-                      type="radio"
-                      value="Food"
-                      onChange={(e) => setFood(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
-                    />
-                    <label
-                      htmlFor="food"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Food
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="swag"
-                      name="swagfood"
-                      type="radio"
-                      value="Swag"
-                      onChange={(e) => setFood(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
-                    />
-                    <label
-                      htmlFor="swag"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Swag
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="both"
-                      name="swagfood"
-                      type="radio"
-                      value="Both"
-                      onChange={(e) => setFood(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
-                    />
-                    <label
-                      htmlFor="both"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Both
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="none"
-                      name="swagfood"
-                      type="radio"
-                      value="None"
-                      onChange={(e) => setFood(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
-                    />
-                    <label
-                      htmlFor="none"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      None
                     </label>
                   </div>
                 </div>
