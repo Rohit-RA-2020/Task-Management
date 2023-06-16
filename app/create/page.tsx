@@ -2,18 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import CreateEventPage from "./create";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export default function Create() {
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (localStorage.getItem('userInfo') === null) {
-            router.push("/login")
-        }
-    })
+  useEffect(() => {
+    if (localStorage.getItem("userInfo") === null) {
+      router.push("/login");
+    }
+  });
 
-    return (
-        <CreateEventPage />
-    )
+  return <CreateEventPage />;
 }

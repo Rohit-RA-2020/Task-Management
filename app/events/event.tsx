@@ -66,33 +66,45 @@ export default function EventListing() {
                           {item.description}
                         </p>
                         <div className="flex items-center mb-2">
-                          <MdOutlinePlace className="mb-8 leading-relaxed" size="30" />
+                          <MdOutlinePlace
+                            className="mb-8 leading-relaxed"
+                            size="30"
+                          />
                           <p className="mb-8 leading-relaxed mx-2">
                             Type: {item.type}
                           </p>
                         </div>
                         <div className="flex items-center mb-2">
-                          <IoIosPeople className="mb-8 leading-relaxed" size="30" />
+                          <IoIosPeople
+                            className="mb-8 leading-relaxed"
+                            size="30"
+                          />
                           <p className="mb-8 leading-relaxed mx-2">
                             Audience: {item.audience}
                           </p>
                         </div>
                         <div className="flex justify-center">
-                          <button className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg" onClick={() => {
-                            router.push(`/events/${item.$id}`)
-                          }}>
+                          <button
+                            className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
+                            onClick={() => {
+                              router.push(`/events/${item.$id}`);
+                            }}
+                          >
                             Register
                           </button>
-                          {((JSON.parse(localStorage.getItem("userInfo") || "{}").$id) === item.created) ? (
-                            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg" onClick={() => {
-                              router.push(`/stats/${item.$id}`)
-                            }}>
-                            View Stats
-                          </button>
+                          {JSON.parse(localStorage.getItem("userInfo") || "{}")
+                            .$id === item.created ? (
+                            <button
+                              className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                              onClick={() => {
+                                router.push(`/stats/${item.$id}`);
+                              }}
+                            >
+                              View Stats
+                            </button>
                           ) : (
                             <div></div>
                           )}
-                          
                         </div>
                       </div>
                     </div>

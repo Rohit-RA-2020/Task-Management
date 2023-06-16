@@ -57,7 +57,7 @@ const CreateEventPage = () => {
         sponsor1,
         sponsor2,
         sponsor3,
-        approval,
+        approval
       )
       .then((res) => {
         if (res == "sucess") {

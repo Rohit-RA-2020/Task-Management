@@ -50,73 +50,71 @@ export default function MyEvents() {
               events.map((item) =>
                 JSON.parse(localStorage.getItem("userInfo") || "{}").$id ===
                 item.created ? (
-                  <div>
-                    <div key={item.$id} className="py-2">
-                      <section className="text-gray-600 body-font">
-                        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-                          <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-                            <img
-                              className="object-cover object-center rounded"
-                              alt="hero"
-                              src={item.url}
+                  <div key={item.$id} className="py-2">
+                    <section className="text-gray-600 body-font">
+                      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+                        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+                          <img
+                            className="object-cover object-center rounded"
+                            alt="hero"
+                            src={item.url}
+                          />
+                        </div>
+                        <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                            {item.eventname}
+                          </h1>
+                          <p className="mb-8 leading-relaxed">
+                            {item.description}
+                          </p>
+                          <div className="flex items-center mb-2">
+                            <MdOutlinePlace
+                              className="mb-8 leading-relaxed"
+                              size="30"
                             />
-                          </div>
-                          <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                              {item.eventname}
-                            </h1>
-                            <p className="mb-8 leading-relaxed">
-                              {item.description}
+                            <p className="mb-8 leading-relaxed mx-2">
+                              Type: {item.type}
                             </p>
-                            <div className="flex items-center mb-2">
-                              <MdOutlinePlace
-                                className="mb-8 leading-relaxed"
-                                size="30"
-                              />
-                              <p className="mb-8 leading-relaxed mx-2">
-                                Type: {item.type}
-                              </p>
-                            </div>
-                            <div className="flex items-center mb-2">
-                              <IoIosPeople
-                                className="mb-8 leading-relaxed"
-                                size="30"
-                              />
-                              <p className="mb-8 leading-relaxed mx-2">
-                                Audience: {item.audience}
-                              </p>
-                            </div>
-                            <div className="flex justify-center">
+                          </div>
+                          <div className="flex items-center mb-2">
+                            <IoIosPeople
+                              className="mb-8 leading-relaxed"
+                              size="30"
+                            />
+                            <p className="mb-8 leading-relaxed mx-2">
+                              Audience: {item.audience}
+                            </p>
+                          </div>
+                          <div className="flex justify-center">
+                            <button
+                              className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
+                              onClick={() => {
+                                router.push(`/events/${item.$id}`);
+                              }}
+                            >
+                              Register
+                            </button>
+                            {JSON.parse(
+                              localStorage.getItem("userInfo") || "{}"
+                            ).$id === item.created ? (
                               <button
-                                className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
+                                className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
                                 onClick={() => {
-                                  router.push(`/events/${item.$id}`);
+                                  router.push(`/stats/${item.$id}`);
                                 }}
                               >
-                                Register
+                                View Stats
                               </button>
-                              {JSON.parse(
-                                localStorage.getItem("userInfo") || "{}"
-                              ).$id === item.created ? (
-                                <button
-                                  className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
-                                  onClick={() => {
-                                    router.push(`/stats/${item.$id}`);
-                                  }}
-                                >
-                                  View Stats
-                                </button>
-                              ) : (
-                                <div></div>
-                              )}
-                            </div>
+                            ) : (
+                              <div></div>
+                            )}
                           </div>
                         </div>
-                      </section>
-                    </div>
+                      </div>
+                    </section>
                   </div>
                 ) : (
-                  <div></div>
+                  <div key={item.$id}></div>
                 )
               )}
           </div>

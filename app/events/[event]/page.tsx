@@ -6,8 +6,7 @@ import AppwriteConfig from "../../constants/appwrite_config";
 
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
-import swal from 'sweetalert';
-
+import swal from "sweetalert";
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -120,38 +119,53 @@ export default function Event({ params }: { params: { event: string } }) {
                       reg?.push(
                         JSON.parse(localStorage.getItem("userInfo") || "{}").$id
                       );
-                      appwriteConfig.databases.updateDocument(
-                        `${process.env.NEXT_PUBLIC_DATABASEID}`,
-                        `${process.env.NEXT_PUBLIC_EVENT_COLLID}`,
-                        params["event"],
-                        {
-                          registrations: reg,
-                        }
-                      ).then(() => {
-                        appwriteConfig.regDb.createDocument(
-                          `${process.env.NEXT_PUBLIC_REGDB}`,
+                      appwriteConfig.databases
+                        .updateDocument(
+                          `${process.env.NEXT_PUBLIC_DATABASEID}`,
+                          `${process.env.NEXT_PUBLIC_EVENT_COLLID}`,
                           params["event"],
-                          JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
                           {
-                            name: JSON.parse(localStorage.getItem("userInfo") || "").name,
-                            email: JSON.parse(localStorage.getItem("userInfo") || "").email,
+                            registrations: reg,
                           }
-                          
-                        ).then((res) => {
-                          router.push("/events/sucessreg");
+                        )
+                        .then(() => {
+                          appwriteConfig.regDb
+                            .createDocument(
+                              `${process.env.NEXT_PUBLIC_REGDB}`,
+                              params["event"],
+                              JSON.parse(
+                                localStorage.getItem("userInfo") || "{}"
+                              ).$id,
+                              {
+                                name: JSON.parse(
+                                  localStorage.getItem("userInfo") || ""
+                                ).name,
+                                email: JSON.parse(
+                                  localStorage.getItem("userInfo") || ""
+                                ).email,
+                              }
+                            )
+                            .then((res) => {
+                              router.push("/events/sucessreg");
+                            });
                         });
-                      });
                     }}
                   >
                     Register
                   </button>
                 )}
                 <a>
-                  <button className="bg-[#F3F4F6] text-black font-bold py-2 px-5 rounded" onClick={() => {
-                      return swal("Good job!", "You can contact host", "success", {
-                        
-                      });
-                    }}>
+                  <button
+                    className="bg-[#F3F4F6] text-black font-bold py-2 px-5 rounded"
+                    onClick={() => {
+                      return swal(
+                        "Good job!",
+                        "You can contact host",
+                        "success",
+                        {}
+                      );
+                    }}
+                  >
                     Contact Host
                   </button>
                 </a>

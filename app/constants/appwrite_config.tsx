@@ -10,23 +10,31 @@ class ServerConfig {
   databases: sdk.Databases = new sdk.Databases(this.client);
   key: string = `${process.env.NEXT_PUBLIC_DBKEY}`;
 
-  constructor () {
+  constructor() {
     this.client
-    .setEndpoint("https://cloud.appwrite.io/v1")
-    .setProject("647449f26e9ca9aadf03")
-    .setKey(this.key);
+      .setEndpoint("https://cloud.appwrite.io/v1")
+      .setProject("647449f26e9ca9aadf03")
+      .setKey(this.key);
   }
 
   createColl(id: string, name: string) {
-    this.databases.createCollection(this.regDb, id, name, [
-      Permission.read(Role.any()),                  // Anyone can view this document
-      Permission.update(Role.any()),      // Writers can update this document
-      Permission.create(Role.any()),       // Admins can update this document
-      Permission.delete(Role.any()),        // Admins can delete this document
-  ]).then((res) => {
-    this.databases.createStringAttribute(this.regDb, id, "name", 50, false);
-    this.databases.createStringAttribute(this.regDb, id, "email", 50, false)
-  });
+    this.databases
+      .createCollection(this.regDb, id, name, [
+        Permission.read(Role.any()), // Anyone can view this document
+        Permission.update(Role.any()), // Writers can update this document
+        Permission.create(Role.any()), // Admins can update this document
+        Permission.delete(Role.any()), // Admins can delete this document
+      ])
+      .then((res) => {
+        this.databases.createStringAttribute(this.regDb, id, "name", 50, false);
+        this.databases.createStringAttribute(
+          this.regDb,
+          id,
+          "email",
+          50,
+          false
+        );
+      });
   }
 }
 
@@ -145,7 +153,7 @@ class AppwriteConfig {
     sponsor1: string,
     sponsor2: string,
     sponsor3: string,
-    approval: string,
+    approval: string
   ): Promise<String> {
     try {
       this.storage
@@ -175,7 +183,7 @@ class AppwriteConfig {
               sponsor3: sponsor3,
               approval: approval,
               created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
-              registrations: []
+              registrations: [],
             })
             .then((res) => {
               const serverConfig = new ServerConfig();

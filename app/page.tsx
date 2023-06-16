@@ -91,13 +91,12 @@ export default function Home() {
               <button
                 className="rounded-md bg-[#DB195A] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#990e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => {
-                  if (localStorage.getItem('userInfo') != null) {
-                    router.push("/landing")
+                  if (localStorage.getItem("userInfo") != null) {
+                    router.push("/landing");
                   } else {
-                    router.push("/login")
+                    router.push("/login");
                   }
-                }
-                }
+                }}
               >
                 Get started
               </button>
