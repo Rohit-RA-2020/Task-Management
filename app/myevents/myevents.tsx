@@ -103,7 +103,7 @@ export default function MyEvents() {
                                   router.push(`/stats/${item.$id}`);
                                 }}
                               >
-                                View Stats
+                                View Registrations
                               </button>
                             ) : (
                               <div></div>

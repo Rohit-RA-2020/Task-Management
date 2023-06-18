@@ -100,7 +100,7 @@ export default function EventListing() {
                                 router.push(`/stats/${item.$id}`);
                               }}
                             >
-                              View Stats
+                              View Registrations
                             </button>
                           ) : (
                             <div></div>

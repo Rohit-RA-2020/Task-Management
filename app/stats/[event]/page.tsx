@@ -42,20 +42,28 @@ export default function Event({ params }: { params: { event: string } }) {
         ) : (
           <div>
             {docs &&
-              docs.map((item) => (
-                <div key={item.$id}>
-                  <div className="p-4 flex items-center justify-between">
-                    <div>
-                      <p>{item.name}</p>
-                    </div>
-                    <div>
-                      <span className="text-[#2f394a] cursor pointer">
-                        {item.email}
-                      </span>
+              docs.map((item) =>
+                docs.length !== 0 ? (
+                  <div key={item.$id}>
+                    <div className="p-4 flex items-center justify-between">
+                      <div>
+                        <p>{item.name}</p>
+                      </div>
+                      <div>
+                        <span className="text-[#2f394a] cursor pointer">
+                          {item.email}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ) : (
+                  <div className="p-4 flex items-center justify-between">
+                    <div className="text-black">
+                      <p>No Registrations</p>
+                    </div>
+                  </div>
+                )
+              )}
           </div>
         )}
       </div>
