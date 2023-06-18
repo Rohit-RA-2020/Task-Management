@@ -57,7 +57,7 @@ export default function Event({ params }: { params: { event: string } }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="p-4 flex items-center justify-between">
+                  <div className="p-4 flex items-center justify-between" key={item.$id}>
                     <div className="text-black">
                       <p>No Registrations</p>
                     </div>
