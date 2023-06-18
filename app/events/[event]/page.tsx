@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import { ID, Models } from "appwrite";
 import AppwriteConfig from "../../constants/appwrite_config";
-import Link from "next/link";
-
+import {
+  AiOutlineInstagram,
+  AiFillLinkedin,
+  AiOutlineTwitter,
+} from "react-icons/ai";
+import { TbWorldWww } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
 import swal from "sweetalert";
@@ -63,7 +67,7 @@ export default function Event({ params }: { params: { event: string } }) {
             />
             <div className="w-3/4 p-5">
               <h1 className="text-black font-bold text-xl sm:text-4xl">
-              {docs && docs["eventname"]}
+                {docs && docs["eventname"]}
               </h1>
               <p className="text-gray-800 py-2 text-md sm:text-lg">
                 Hosted by {docs && docs["hostname"]}
@@ -72,7 +76,7 @@ export default function Event({ params }: { params: { event: string } }) {
                 <div className="flex flex-row pb-2">
                   <div>
                     <h3 className="text-gray-800 font-bold text-md sm:text-lg">
-                    {docs && docs["eventdate"]}
+                      {docs && docs["eventdate"]}
                     </h3>
                   </div>
                 </div>
@@ -80,9 +84,11 @@ export default function Event({ params }: { params: { event: string } }) {
                   {/* //Here comes the icon for location */}
                   <div>
                     <h3 className="text-black font-bold text-md sm:text-lg">
-                    {docs && docs["address"]}
+                      {docs && docs["address"]}
                     </h3>
-                    <span className="text-gray-700">{docs && docs["city"]}, {docs && docs["state"]}</span>
+                    <span className="text-gray-700">
+                      {docs && docs["city"]}, {docs && docs["state"]}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -103,7 +109,7 @@ export default function Event({ params }: { params: { event: string } }) {
                   <button
                     className="bg-[#DB195A] text-white w-full rounded-lg p-1 text-md sm:text-lg hover:bg-[#990e3c] flex justify-center"
                     onClick={() => {
-                      alert("Your Are alredy registered");
+                      alert("Your Are already registered");
                     }}
                   >
                     Registered
@@ -158,7 +164,7 @@ export default function Event({ params }: { params: { event: string } }) {
                 <hr />
                 <div className="px-3">
                   <p className="text-grey-800 py-2 text-md sm:text-lg">
-                  {docs && docs["description"]}
+                    {docs && docs["description"]}
                   </p>
                   <p className="text-black font-bold py-2 text-md sm:text-lg">
                     Venue: Nagpur
@@ -175,19 +181,24 @@ export default function Event({ params }: { params: { event: string } }) {
                     and delicious food.
                   </p>
                   <div className="flex flex-col py-2 text-md sm:text-lg">
-                    <p className="text-black"> Follow us on-</p>
-                    <Link href="#" className="text-[#e56589]">
-                      Twitter
-                    </Link>
-                    <Link href="#" className="text-[#e56589]">
-                      Telegram
-                    </Link>
-                    <Link href="#" className="text-[#e56589]">
-                      LinkedIn
-                    </Link>
-                    <Link href="#" className="text-[#e56589]">
-                      Discord
-                    </Link>
+                    <p className="text-black text-xl font-bold flex justify-center py">
+                      {" "}
+                      Follow us on
+                    </p>
+                    <span className="flex justify-center py-5">
+                      <a href={`${docs && docs["website"]}`} target="_blank">
+                        <TbWorldWww fontSize={50} className="px-2" />
+                      </a>
+                      <a href={`${docs && docs["twitter"]}`} target="_blank">
+                        <AiOutlineTwitter fontSize={50} className="px-2" />
+                      </a>
+                      <a href={`${docs && docs["linkedin"]}`} target="_blank">
+                        <AiFillLinkedin fontSize={50} className="px-2" />
+                      </a>
+                      <a href={`${docs && docs["instagram"]}`} target="_blank">
+                        <AiOutlineInstagram fontSize={50} className="px-2" />
+                      </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -198,13 +209,26 @@ export default function Event({ params }: { params: { event: string } }) {
                   Location
                 </h3>
                 <hr />
-                {/* //show google maps here */}
+                <div className="mapouter">
+                  <div className="gmap_canvas">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      id="gmap_canvas"
+                      src={`https://maps.google.com/maps?q=${
+                        docs && docs["postal"]
+                      }&t=&z=10&ie=UTF8&iwloc=&output=embed`}
+                      scrolling="no"
+                    ></iframe>
+                  </div>
+                </div>
                 <div>
                   <p className="text-gray-700 font-bold p-2 text-md sm:text-lg">
-                  {docs && docs["address"]}
+                    {docs && docs["address"]}
                   </p>
                   <p className="text-black-700 p-2 text-md sm:text-lg">
-                  {docs && docs["city"]}, {docs && docs["state"]}, {docs && docs["country"]} - {docs && docs["postal"]}
+                    {docs && docs["city"]}, {docs && docs["state"]},{" "}
+                    {docs && docs["country"]} - {docs && docs["postal"]}
                   </p>
                 </div>
               </div>
@@ -212,25 +236,33 @@ export default function Event({ params }: { params: { event: string } }) {
                 <h3 className="text-gray-700 px-3 pb-3 pt-1 font-bold text-md sm:text-lg">
                   Agenda
                 </h3>
-                
+
                 <hr className="divide-black" />
-                
+
                 <p className="text-black-700 p-2 text-md sm:text-lg">
-                {docs && docs["agenda"]}
-                  </p>
-                
+                  {docs && docs["agenda"]}
+                </p>
               </div>
               <div className="bg-[#f8f9f9] mx-auto rounded-xl p-2 mb-2 sm:mb-4 divide-black">
                 <h3 className="text-gray-700 px-3 pb-3 pt-1 font-bold text-md sm:text-lg">
                   Hosts
                 </h3>
-                
+
                 <hr className="divide-black" />
-                
+
                 <p className="font-bold text-gray-600 p-2 text-md sm:text-lg">
-                  Zeeve
+                  {docs && docs["hostname"]}
                 </p>
-                <button className="w-full bg-[#DB195A] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg">
+                <button
+                  className="w-full bg-[#DB195A] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg"
+                  onClick={() => {
+                    return swal({
+                      title: `${docs && docs["email"]}`,
+                      text: "Event Support Email",
+                      icon: "info",
+                    });
+                  }}
+                >
                   Contact
                 </button>
               </div>
