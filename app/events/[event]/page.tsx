@@ -12,6 +12,8 @@ import { TbWorldWww } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
 import swal from "sweetalert";
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -162,25 +164,9 @@ export default function Event({ params }: { params: { event: string } }) {
                   About Event
                 </h4>
                 <hr />
-                <div className="px-3">
-                  <p className="text-grey-800 py-2 text-md sm:text-lg">
-                    {docs && docs["description"]}
-                  </p>
-                  <p className="text-black font-bold py-2 text-md sm:text-lg">
-                    Venue: Nagpur
-                  </p>
-                  <p className="text-black font-bold py-2 text-md sm:text-lg">
-                    Date: 19th Feb 2023
-                  </p>
-                  <p className="text-black font-bold py-2 text-md sm:text-lg">
-                    Time: 02:00 PM Onwards
-                  </p>
-                  <p className="text-black py-2 text-md sm:text-lg">
-                    Register above and RSVP NOW for an afternoon of meaningful
-                    networking, engaging interactions, fun-filled activities,
-                    and delicious food.
-                  </p>
-                  <div className="flex flex-col py-2 text-md sm:text-lg">
+                <div className="px-3 py-5">
+                  <ReactMarkdown remarkPlugins={[gfm]}>{docs && docs['description']}</ReactMarkdown>
+                  <div className="flex flex-col text-md sm:text-lg py-5">
                     <p className="text-black text-xl font-bold flex justify-center py">
                       {" "}
                       Follow us on
