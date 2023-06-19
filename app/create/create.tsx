@@ -332,7 +332,7 @@ const CreateEventPage = () => {
 
               <div className="sm:col-span-4 py-2">
                 <p className="block text-sm font-medium leading-6 text-gray-900 y-2">
-                  Enter Sponsor's Detail
+                Enter Sponsor&apos;s details
                 </p>
               </div>
             </div>
