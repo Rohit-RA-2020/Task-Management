@@ -93,8 +93,8 @@ class AppwriteConfig {
     try {
       const promise = this.account.createOAuth2Session(
         "google",
-        `${process.env.NEXT_PUBLIC_APPURL}/landing`,
-        "",
+        `${process.env.NEXT_PUBLIC_APPURL}/login/sucess`,
+        `${process.env.NEXT_PUBLIC_APPURL}/login/failure`,
         []
       );
       this.getCurUser();
@@ -107,8 +107,8 @@ class AppwriteConfig {
     try {
       this.account.createOAuth2Session(
         "github",
-        `${process.env.NEXT_PUBLIC_APPURL}/landing`,
-        "",
+        `${process.env.NEXT_PUBLIC_APPURL}/login/sucess`,
+        `${process.env.NEXT_PUBLIC_APPURL}/login/failure`,
         []
       );
       this.getCurUser();
@@ -159,7 +159,7 @@ class AppwriteConfig {
     this.account.createMagicURLSession(
       ID.unique(),
       email,
-      `${process.env.NEXT_PUBLIC_APPURL}/landing`
+      `${process.env.NEXT_PUBLIC_APPURL}/login/sucess`
     );
     this.getCurUser();
   }
