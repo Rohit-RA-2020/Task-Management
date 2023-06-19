@@ -5,6 +5,12 @@ import AppwriteConfig from "../constants/appwrite_config";
 import { useRouter } from "next/navigation";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
+interface Sponsors {
+  id: number;
+  name: string;
+  url: string;
+}
+
 const CreateEventPage = () => {
   const [eventname, setEventName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,9 +29,6 @@ const CreateEventPage = () => {
   const [price, setPrice] = useState(0);
   const [tech, setTech] = useState("Yes");
   const [agenda, setAgenda] = useState("");
-  const [sponsor1, setSponsor1] = useState("");
-  const [sponsor2, setSponsor2] = useState("");
-  const [sponsor3, setSponsor3] = useState("");
   const [approval, setApproval] = useState("");
   const [twitter, setTwitter] = useState("");
   const [website, setWebsite] = useState("");
@@ -33,11 +36,39 @@ const CreateEventPage = () => {
   const [instagram, setInstagram] = useState("");
 
   const router = useRouter();
+  const appwriteConfig = new AppwriteConfig();
+
+  const [sponsors, setSponsors] = useState<Sponsors[]>([
+    { id: 1, name: "", url: "" },
+  ]);
+
+  const handleSponsorChange = (
+    id: number,
+    fieldName: string,
+    value: string
+  ) => {
+    const updatedFields = sponsors.map((field) =>
+      field.id === id ? { ...field, [fieldName]: value } : field
+    );
+    setSponsors(updatedFields);
+  };
+
+  const handleAddSponsor = () => {
+    const newField: Sponsors = {
+      id: sponsors.length + 1,
+      name: "",
+      url: "",
+    };
+    setSponsors([...sponsors, newField]);
+  };
+
+  const handleRemoveSponsor = (id: number) => {
+    const updatedFields = sponsors.filter((field) => field.id !== id);
+    setSponsors(updatedFields);
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    const appwriteConfig = new AppwriteConfig();
 
     appwriteConfig
       .createEvent(
@@ -58,9 +89,7 @@ const CreateEventPage = () => {
         price,
         tech,
         agenda,
-        sponsor1,
-        sponsor2,
-        sponsor3,
+        sponsors,
         approval,
         twitter,
         website,
@@ -71,8 +100,6 @@ const CreateEventPage = () => {
         if (res == "sucess") {
           router.push("/events");
         } else {
-          // show error dialog
-          console.log(res);
         }
       });
   };
@@ -173,7 +200,7 @@ const CreateEventPage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Event Information
@@ -191,7 +218,7 @@ const CreateEventPage = () => {
                   Target Audience
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="audience"
                     id="audience"
@@ -303,68 +330,52 @@ const CreateEventPage = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-4">
-                <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Enter Upto 3 Sponsors Name
+              <div className="sm:col-span-4 py-2">
+                <p className="block text-sm font-medium leading-6 text-gray-900 y-2">
+                  Enter Sponsor's Detail
                 </p>
               </div>
-
-              <div className="sm:col-span-2 sm:col-start-1">
-                <label
-                  htmlFor="sponsor1"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+            </div>
+            {sponsors.map((field) => (
+              <div key={field.id} className="flex field-container py-2 px-2">
+                <input
+                  type="text"
+                  value={field.name}
+                  onChange={(e) =>
+                    handleSponsorChange(field.id, "name", e.target.value)
+                  }
+                  placeholder="Sponsor Name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                
+                <input
+                  type="text"
+                  value={field.url}
+                  onChange={(e) =>
+                    handleSponsorChange(field.id, "url", e.target.value)
+                  }
+                  placeholder="Sponsor Link"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="px-5">
+                <button
+                type="button"
+                  onClick={() => handleRemoveSponsor(field.id)}
+                  className="rounded-md bg-red-500 text-white px-2 py-2"
                 >
-                  Sponsor 1
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="sponsor1"
-                    id="sponsor1"
-                    value={sponsor1}
-                    onChange={(e) => setSponsor1(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
+                  Remove
+                </button>
                 </div>
               </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="sponsor2"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Sponsor 2
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="sponsor2"
-                    id="sponsor2"
-                    value={sponsor2}
-                    onChange={(e) => setSponsor2(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="sponsor3"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Sponsor 3
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="sponsor3"
-                    id="sponsor3"
-                    value={sponsor3}
-                    onChange={(e) => setSponsor3(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
+            ))}
+            <div className="py-5">
+            <button
+              onClick={handleAddSponsor}
+              type="button"
+              className="rounded bg-blue-500 text-white px-4 py-2"
+            >
+              Add Sponsor
+            </button>
             </div>
           </div>
 
@@ -444,7 +455,7 @@ const CreateEventPage = () => {
                   Country
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="country"
                     id="country"
@@ -555,7 +566,7 @@ const CreateEventPage = () => {
                   Twitter link
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="twitter"
                     id="twitter"
@@ -574,7 +585,7 @@ const CreateEventPage = () => {
                   LinkedIn link
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="linkedin"
                     id="linkedin"
@@ -593,7 +604,7 @@ const CreateEventPage = () => {
                   Website link
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="website"
                     id="website"
@@ -612,7 +623,7 @@ const CreateEventPage = () => {
                   Instagram link
                 </label>
                 <div className="mt-2">
-                <input
+                  <input
                     type="text"
                     name="instagram"
                     id="instagram"
@@ -623,7 +634,6 @@ const CreateEventPage = () => {
                   />
                 </div>
               </div>
-              
             </div>
           </div>
 

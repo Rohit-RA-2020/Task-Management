@@ -12,8 +12,8 @@ import { TbWorldWww } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
 import swal from "sweetalert";
-import ReactMarkdown from 'react-markdown'
-import gfm from 'remark-gfm'
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -23,6 +23,8 @@ export default function Event({ params }: { params: { event: string } }) {
 
   const [reg, setReg] = useState<string[]>();
   const [isReg, setIsReg] = useState(false);
+
+  const [sponsors, setSponsors] = useState<Models.Document[]>();
 
   const router = useRouter();
 
@@ -46,6 +48,16 @@ export default function Event({ params }: { params: { event: string } }) {
           ) {
             setIsReg(true);
           }
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
+    appwriteConfig.databases
+      .listDocuments(`${process.env.NEXT_PUBLIC_SPODB}`, params["event"])
+      .then(
+        function (response) {
+          setSponsors(response.documents);
         },
         function (error) {
           console.log(error);
@@ -163,9 +175,28 @@ export default function Event({ params }: { params: { event: string } }) {
                 <h4 className="text-black px-3 pb-3 pt-1 font-bold text-md sm:text-lg">
                   About Event
                 </h4>
+
                 <hr />
+
                 <div className="px-3 py-5">
-                  <ReactMarkdown remarkPlugins={[gfm]}>{docs && docs['description']}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[gfm]}>
+                    {docs && docs["description"]}
+                  </ReactMarkdown>
+                  <h1 className="text-lg font-bold py-5 text-gray-700">
+                    Our Sponsors
+                  </h1>
+                  <div className="mx-auto">
+                    {sponsors &&
+                      sponsors.map((sponsor) => (
+                        <div key={sponsor.$id}>
+                          <div>
+                            <a href={`${sponsor.url}`} target="_blank">
+                              {sponsor.name}
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                   <div className="flex flex-col text-md sm:text-lg py-5">
                     <p className="text-black text-xl font-bold flex justify-center py">
                       {" "}

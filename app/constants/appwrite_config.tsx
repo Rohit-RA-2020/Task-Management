@@ -4,9 +4,15 @@ import { Client, Account, Models, ID, Databases, Storage } from "appwrite";
 import { User } from "./interface";
 import sdk, { Permission, Role } from "node-appwrite";
 
+interface Sponsors {
+  id: number;
+  name: string;
+  url: string;
+}
 class ServerConfig {
   client: sdk.Client = new sdk.Client();
   regDb: string = `${process.env.NEXT_PUBLIC_REGDB}`;
+  sponDb: string = `${process.env.NEXT_PUBLIC_SPODB}`;
   databases: sdk.Databases = new sdk.Databases(this.client);
   key: string = `${process.env.NEXT_PUBLIC_DBKEY}`;
 
@@ -17,7 +23,7 @@ class ServerConfig {
       .setKey(this.key);
   }
 
-  createColl(id: string, name: string) {
+  createRegColl(id: string, name: string) {
     this.databases
       .createCollection(this.regDb, id, name, [
         Permission.read(Role.any()), // Anyone can view this document
@@ -34,6 +40,32 @@ class ServerConfig {
           50,
           false
         );
+      });
+  }
+
+  createSponColl(id: string, name: string, sponsor: Sponsors[], user:string) {
+    this.databases
+      .createCollection(this.sponDb, id, name, [
+        Permission.read(Role.any()), // Anyone can view this document
+        Permission.update(Role.user(user)), // Writers can update this document
+        Permission.create(Role.user(user)), // Admins can update this document
+        Permission.delete(Role.user(user)), // Admins can delete this document
+      ])
+      .then((res) => {
+        this.databases
+          .createStringAttribute(this.sponDb, id, "name", 50, false)
+          .then((res) => {
+            this.databases
+              .createStringAttribute(this.sponDb, id, "url", 50, false)
+              .then((res) => {
+                for (var i = 0; i < sponsor.length; i++) {
+                  this.databases.createDocument(this.sponDb, id, ID.unique(), {
+                    name: sponsor[i].name,
+                    url: sponsor[i].url,
+                  });
+                }
+              });
+          });
       });
   }
 }
@@ -150,9 +182,7 @@ class AppwriteConfig {
     price: number,
     tech: string,
     agenda: string,
-    sponsor1: string,
-    sponsor2: string,
-    sponsor3: string,
+    sponsor: Sponsors[],
     approval: string,
     twitter: string,
     website: string,
@@ -182,9 +212,6 @@ class AppwriteConfig {
               price: price,
               tech: tech,
               agenda: agenda,
-              sponsor1: sponsor1,
-              sponsor2: sponsor2,
-              sponsor3: sponsor3,
               approval: approval,
               created: JSON.parse(localStorage.getItem("userInfo") || "{}").$id,
               twitter: twitter,
@@ -195,8 +222,8 @@ class AppwriteConfig {
             })
             .then((res) => {
               const serverConfig = new ServerConfig();
-              serverConfig.createColl(res.$id, eventname);
-              console.log(res);
+              serverConfig.createRegColl(res.$id, eventname);
+              serverConfig.createSponColl(res.$id, eventname, sponsor, JSON.parse(localStorage.getItem("userInfo") || "{}").$id);
               return Promise.resolve("sucess");
             });
         });

@@ -63,7 +63,7 @@ export default function EventListing() {
                           {item.eventname}
                         </h1>
                         <p className="mb-8 leading-relaxed">
-                          {item.description}
+                          {item.agenda}
                         </p>
                         <div className="flex items-center mb-2">
                           <MdOutlinePlace
