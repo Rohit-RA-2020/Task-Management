@@ -145,7 +145,7 @@ const CreateEventPage = () => {
                 >
                   Description
                   <span className="text-gray-600 px-3">
-                    (Supports Github Style Markdown)
+                    (Markdown will be suported soon)
                   </span>
                 </label>
                 <div className="mt-2">

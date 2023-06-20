@@ -1,11 +1,23 @@
 "use client";
 
+interface UserReg {
+  name: string;
+  email: string;
+}
+
 import { useEffect, useState } from "react";
 import { ID, Models } from "appwrite";
 import AppwriteConfig from "../../constants/appwrite_config";
 
+import CsvDownloader from "react-csv-downloader";
+
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
+
+const headers = [
+  { label: "Name", key: "name" },
+  { label: "Email", key: "email" },
+];
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -14,6 +26,21 @@ export default function Event({ params }: { params: { event: string } }) {
   const [loader, setLoader] = useState(false);
 
   const router = useRouter();
+
+  const data: {
+    name: string;
+    email: string;
+  }[] = [];
+
+  const asyncFnComputeDate = () => {
+    for (let i = 0; i < docs?.length!; i++) {
+      data.push({
+        name: docs![i].name,
+        email: docs![i].email,
+      });
+    }
+    return Promise.resolve(data);
+  };
 
   useEffect(() => {
     setLoader(true);
@@ -24,16 +51,18 @@ export default function Event({ params }: { params: { event: string } }) {
           setDocs(response.documents);
         },
         function (error) {
+          setDocs([]);
           console.log(error);
         }
       );
+
     setLoader(false);
   }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         <p className="text-2xl font-bold mb-2 flex justify-center mx-auto py-10">
           Active Registrations
         </p>
@@ -57,7 +86,10 @@ export default function Event({ params }: { params: { event: string } }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="p-4 flex items-center justify-between" key={item.$id}>
+                  <div
+                    className="p-4 flex items-center justify-between"
+                    key={item.$id}
+                  >
                     <div className="text-black">
                       <p>No Registrations</p>
                     </div>
@@ -66,6 +98,9 @@ export default function Event({ params }: { params: { event: string } }) {
               )}
           </div>
         )}
+        <p className="text-lg mb-5 flex justify-center mx-auto text-blue">
+        <CsvDownloader datas={asyncFnComputeDate} filename="reg" text="Export Registrations" />
+        </p>
       </div>
     </div>
   );

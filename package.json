@@ -24,6 +24,7 @@
     "node-appwrite": "^9.0.0",
     "postcss": "8.4.23",
     "react": "18.2.0",
+    "react-csv-downloader": "^2.9.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
     "react-markdown": "^8.0.7",
@@ -38,6 +39,7 @@
     "path": false
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.3"
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/react-csv": "^1.1.3"
   }
 }
