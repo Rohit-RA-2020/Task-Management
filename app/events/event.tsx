@@ -3,10 +3,14 @@
 import { useEffect, useState } from "react";
 import AppwriteConfig from "../constants/appwrite_config";
 import Header from "../components/header";
-import { Models } from "appwrite";
+import { Models, Client } from "appwrite";
 import { MdOutlinePlace } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { useRouter } from "next/navigation";
+
+const client = new Client()
+  .setEndpoint("https://cloud.appwrite.io/v1")
+  .setProject("647449f26e9ca9aadf03");
 
 export default function EventListing() {
   const appwriteConfig = new AppwriteConfig();
@@ -18,12 +22,10 @@ export default function EventListing() {
 
   useEffect(() => {
     setLoader(true);
-    const getEvents = appwriteConfig.databases.listDocuments(
+    appwriteConfig.databases.listDocuments(
       `${process.env.NEXT_PUBLIC_DATABASEID}`,
       `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
-    );
-
-    getEvents.then(
+    ).then(
       function (response) {
         setEvents(response.documents);
       },
@@ -31,6 +33,23 @@ export default function EventListing() {
         console.log(error);
       }
     );
+
+    const unsubscribe = client.subscribe(
+      `databases.${process.env.NEXT_PUBLIC_DATABASEID}.collections.${process.env.NEXT_PUBLIC_EVENT_COLLID}.documents`,
+      (response) => {
+        appwriteConfig.databases.listDocuments(
+          `${process.env.NEXT_PUBLIC_DATABASEID}`,
+          `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
+        ).then(
+          function (response) {
+            setEvents(response.documents);
+          },
+          function (error) {
+            console.log(error);
+          }
+        );
+      }
+    )
 
     setLoader(false);
   }, []);
@@ -85,7 +104,7 @@ export default function EventListing() {
                         </div>
                         <div className="flex justify-center">
                           <button
-                            className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
+                            className="inline-flex text-white bg-[#f02e65] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
                             onClick={() => {
                               router.push(`/events/${item.$id}`);
                             }}

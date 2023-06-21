@@ -121,7 +121,7 @@ export default function Event({ params }: { params: { event: string } }) {
                 </p>
                 {isReg ? (
                   <button
-                    className="bg-[#DB195A] text-white w-full rounded-lg p-1 text-md sm:text-lg hover:bg-[#990e3c] flex justify-center"
+                    className="bg-[#f02e65] text-white w-full rounded-lg p-1 text-md sm:text-lg hover:bg-[#990e3c] flex justify-center"
                     onClick={() => {
                       alert("Your Are already registered");
                     }}
@@ -130,7 +130,7 @@ export default function Event({ params }: { params: { event: string } }) {
                   </button>
                 ) : (
                   <button
-                    className="bg-[#DB195A] text-white w-full rounded-lg p-1 text-md sm:text-lg hover:bg-[#990e3c] flex justify-center"
+                    className="bg-[#f02e65] text-white w-full rounded-lg p-1 text-md sm:text-lg hover:bg-[#990e3c] flex justify-center"
                     onClick={() => {
                       reg?.push(
                         JSON.parse(localStorage.getItem("userInfo") || "{}").$id
@@ -272,7 +272,7 @@ export default function Event({ params }: { params: { event: string } }) {
                   {docs && docs["hostname"]}
                 </p>
                 <button
-                  className="w-full bg-[#DB195A] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg"
+                  className="w-full bg-[#f02e65] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg"
                   onClick={() => {
                     return swal({
                       title: `${docs && docs["email"]}`,

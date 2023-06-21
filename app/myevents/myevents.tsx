@@ -87,7 +87,7 @@ export default function MyEvents() {
                           </div>
                           <div className="flex justify-center">
                             <button
-                              className="inline-flex text-white bg-[#DB195A] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
+                              className="inline-flex text-white bg-[#f02e65] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg"
                               onClick={() => {
                                 router.push(`/events/${item.$id}`);
                               }}

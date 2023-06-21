@@ -36,7 +36,7 @@ export default function Header() {
           </Link>
         </nav>
         <button
-          className="inline-flex items-center bg-[#DB195A] border-0 py-1 px-3 focus:outline-none hover:bg-[#ab073d] rounded-full text-base mt-4 md:mt-0"
+          className="inline-flex items-center bg-[#f02e65] border-0 py-1 px-3 focus:outline-none hover:bg-[#ab073d] rounded-full text-base mt-4 md:mt-0"
           onClick={() => {
             const sucess = appwriteConfig.signOut(
               JSON.parse(localStorage.getItem("userInfo") || "{}")["$id"]

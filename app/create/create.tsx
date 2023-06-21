@@ -111,7 +111,7 @@ const CreateEventPage = () => {
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-2xl text-[#DB195A] font-bold mb-4 my-5">
+      <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
         Create Event
       </h2>
       <form onSubmit={handleSubmit}>
@@ -655,7 +655,7 @@ const CreateEventPage = () => {
                       type="radio"
                       value="Yes"
                       onChange={(e) => setApproval(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
+                      className="h-4 w-4 border-gray-300 text-[#f02e65] focus:ring-[#f02e65]"
                     />
                     <label
                       htmlFor="yes"
@@ -671,7 +671,7 @@ const CreateEventPage = () => {
                       type="radio"
                       value="No"
                       onChange={(e) => setApproval(e.target.value)}
-                      className="h-4 w-4 border-gray-300 text-[#DB195A] focus:ring-[#DB195A]"
+                      className="h-4 w-4 border-gray-300 text-[#f02e65] focus:ring-[#f02e65]"
                     />
                     <label
                       htmlFor="no"
@@ -689,7 +689,7 @@ const CreateEventPage = () => {
         <div className="mt-6 flex items-center justify-center gap-x-6 py-5">
           <button
             type="submit"
-            className="rounded-md bg-[#DB195A] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#DB195A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DB195A]"
+            className="rounded-md bg-[#f02e65] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f02e65] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f02e65]"
           >
             Save
           </button>

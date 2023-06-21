@@ -23,7 +23,7 @@ export default function SucessReg() {
           <p>Thank you for registration! You can expect a email soon.</p>
           <Link
             href="/landing"
-            className="inline-flex items-center px-4 py-2 text-white bg-[#DB195A] border border-[#DB195A] rounded-full hover:bg-[#DB195A] focus:outline-none focus:ring"
+            className="inline-flex items-center px-4 py-2 text-white bg-[#f02e65] border border-[#f02e65] rounded-full hover:bg-[#f02e65] focus:outline-none focus:ring"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

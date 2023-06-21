@@ -29,7 +29,7 @@ export default function Body() {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                className="text-[#DB195A] w-12 h-12 mb-3 inline-block"
+                className="text-[#f02e65] w-12 h-12 mb-3 inline-block"
                 viewBox="0 0 24 24"
               >
                 <path d="M8 17l4 4 4-4m-4-5v9"></path>
@@ -49,7 +49,7 @@ export default function Body() {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                className="text-[#DB195A] w-12 h-12 mb-3 inline-block"
+                className="text-[#f02e65] w-12 h-12 mb-3 inline-block"
                 viewBox="0 0 24 24"
               >
                 <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
@@ -70,7 +70,7 @@ export default function Body() {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                className="text-[#DB195A] w-12 h-12 mb-3 inline-block"
+                className="text-[#f02e65] w-12 h-12 mb-3 inline-block"
                 viewBox="0 0 24 24"
               >
                 <path d="M3 18v-6a9 9 0 0118 0v6"></path>
@@ -90,7 +90,7 @@ export default function Body() {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                className="text-[#DB195A] w-12 h-12 mb-3 inline-block"
+                className="text-[#f02e65] w-12 h-12 mb-3 inline-block"
                 viewBox="0 0 24 24"
               >
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -104,7 +104,7 @@ export default function Body() {
         </div>
         <div className="flex items-center justify-center py-20">
           <button
-            className="bg-[#DB195A] py-5 px-8 focus:outline-none hover:bg-[#ab073d] rounded-full"
+            className="bg-[#f02e65] py-5 px-8 focus:outline-none hover:bg-[#ab073d] rounded-full"
             onClick={() => router.push("/create")}
           >
             <div className="flex align-items-center gap-1 justify-center mx-auto">
