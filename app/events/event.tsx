@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AppwriteConfig from "../constants/appwrite_config";
+import { AppwriteConfig, ServerConfig } from "../constants/appwrite_config";
 import Header from "../components/header";
 import { Models, Client } from "appwrite";
 import { MdOutlinePlace } from "react-icons/md";
@@ -14,6 +14,7 @@ const client = new Client()
 
 export default function EventListing() {
   const appwriteConfig = new AppwriteConfig();
+  const server = new ServerConfig();
 
   const [events, setEvents] = useState<Models.Document[]>();
   const [loader, setLoader] = useState(false);
@@ -22,34 +23,38 @@ export default function EventListing() {
 
   useEffect(() => {
     setLoader(true);
-    appwriteConfig.databases.listDocuments(
-      `${process.env.NEXT_PUBLIC_DATABASEID}`,
-      `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
-    ).then(
-      function (response) {
-        setEvents(response.documents);
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
+    appwriteConfig.databases
+      .listDocuments(
+        `${process.env.NEXT_PUBLIC_DATABASEID}`,
+        `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
+      )
+      .then(
+        function (response) {
+          setEvents(response.documents);
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
 
     const unsubscribe = client.subscribe(
       `databases.${process.env.NEXT_PUBLIC_DATABASEID}.collections.${process.env.NEXT_PUBLIC_EVENT_COLLID}.documents`,
       (response) => {
-        appwriteConfig.databases.listDocuments(
-          `${process.env.NEXT_PUBLIC_DATABASEID}`,
-          `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
-        ).then(
-          function (response) {
-            setEvents(response.documents);
-          },
-          function (error) {
-            console.log(error);
-          }
-        );
+        appwriteConfig.databases
+          .listDocuments(
+            `${process.env.NEXT_PUBLIC_DATABASEID}`,
+            `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
+          )
+          .then(
+            function (response) {
+              setEvents(response.documents);
+            },
+            function (error) {
+              console.log(error);
+            }
+          );
       }
-    )
+    );
 
     setLoader(false);
   }, []);
@@ -81,9 +86,7 @@ export default function EventListing() {
                         <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
                           {item.eventname}
                         </h1>
-                        <p className="mb-8 leading-relaxed">
-                          {item.agenda}
-                        </p>
+                        <p className="mb-8 leading-relaxed">{item.agenda}</p>
                         <div className="flex items-center mb-2">
                           <MdOutlinePlace
                             className="mb-8 leading-relaxed"
@@ -113,14 +116,42 @@ export default function EventListing() {
                           </button>
                           {JSON.parse(localStorage.getItem("userInfo") || "{}")
                             .$id === item.created ? (
-                            <button
-                              className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
-                              onClick={() => {
-                                router.push(`/stats/${item.$id}`);
-                              }}
-                            >
-                              View Registrations
-                            </button>
+                            <div>
+                              <button
+                                className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                                onClick={() => {
+                                  router.push(`/stats/${item.$id}`);
+                                }}
+                              >
+                                View Registrations
+                              </button>
+                              <button
+                                className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                                onClick={() => {
+                                  server.databases
+                                    .deleteCollection(
+                                      `${process.env.NEXT_PUBLIC_REGDB}`,
+                                      `${item.$id}`
+                                    )
+                                    .then(() => {
+                                      server.databases
+                                        .deleteCollection(
+                                          `${process.env.NEXT_PUBLIC_SPODB}`,
+                                          `${item.$id}`
+                                        )
+                                        .then(() => {
+                                          appwriteConfig.databases.deleteDocument(
+                                            `${process.env.NEXT_PUBLIC_DATABASEID}`,
+                                            `${process.env.NEXT_PUBLIC_EVENT_COLLID}`,
+                                            `${item.$id}`
+                                          );
+                                        });
+                                    });
+                                }}
+                              >
+                                Delete Event
+                              </button>
+                            </div>
                           ) : (
                             <div></div>
                           )}

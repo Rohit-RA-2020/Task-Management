@@ -4,7 +4,7 @@ import "@appwrite.io/pink";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { VscWand } from "react-icons/vsc";
-import AppwriteConfig from "../constants/appwrite_config";
+import {AppwriteConfig} from "../constants/appwrite_config";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

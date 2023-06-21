@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import AppwriteConfig from "../constants/appwrite_config";
+import {AppwriteConfig} from "../constants/appwrite_config";
 import { useRouter } from "next/navigation";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
@@ -554,7 +554,7 @@ const CreateEventPage = () => {
               Social Links
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Help your attendees connect with you
+              Help your attendees connect with you (Please enter proper full URLs along with https://)
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -644,7 +644,7 @@ const CreateEventPage = () => {
                   Requires Approval
                 </legend>
                 <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Will participants need approval fromm your side to attend
+                  Will participants need approval from your side to attend
                   event after registration?
                 </p>
                 <div className="mt-6 space-y-6">

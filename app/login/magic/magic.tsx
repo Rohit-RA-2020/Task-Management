@@ -1,5 +1,5 @@
 "use client";
-import AppwriteConfig from "../../constants/appwrite_config";
+import {AppwriteConfig} from "../../constants/appwrite_config";
 import { useState } from "react";
 
 export default function MagicUrl() {

@@ -3,7 +3,7 @@
 import { useLottie } from "lottie-react";
 import sucess from "../../../public/anim/sucess.json";
 import { useRouter } from "next/navigation";
-import AppwriteConfig from "@/app/constants/appwrite_config";
+import {AppwriteConfig} from "@/app/constants/appwrite_config";
 import { useEffect } from "react";
 
 const style = {

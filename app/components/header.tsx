@@ -4,7 +4,7 @@ import Image from "next/image";
 import Icon from "../../public/logo/logo-transparent-svg.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import AppwriteConfig from "../constants/appwrite_config";
+import {AppwriteConfig} from "../constants/appwrite_config";
 
 export default function Header() {
   const appwriteConfig = new AppwriteConfig();
@@ -28,11 +28,8 @@ export default function Header() {
           >
             Find Events
           </Link>
-          <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">
-            Community
-          </Link>
-          <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/">
-            Start Check-In
+          <Link className="mr-5 hover:text-gray-900 text-gray-500 " href="/create">
+            Create Event
           </Link>
         </nav>
         <button

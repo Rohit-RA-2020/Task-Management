@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Models, Client} from "appwrite";
-import AppwriteConfig from "../../constants/appwrite_config";
+import {AppwriteConfig} from "../../constants/appwrite_config";
 
 import CsvDownloader from "react-csv-downloader";
 

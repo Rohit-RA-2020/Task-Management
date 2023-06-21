@@ -231,4 +231,4 @@ class AppwriteConfig {
   }
 }
 
-export default AppwriteConfig;
+export {AppwriteConfig, ServerConfig};

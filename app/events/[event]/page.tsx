@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ID, Models } from "appwrite";
-import AppwriteConfig from "../../constants/appwrite_config";
+import { Models } from "appwrite";
+import {AppwriteConfig} from "../../constants/appwrite_config";
 import {
   AiOutlineInstagram,
   AiFillLinkedin,

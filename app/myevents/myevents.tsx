@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AppwriteConfig from "../constants/appwrite_config";
+import { AppwriteConfig, ServerConfig } from "../constants/appwrite_config";
 import Header from "../components/header";
-import { Models } from "appwrite";
+import { Models, Client } from "appwrite";
 import { MdOutlinePlace } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
+const client = new Client()
+  .setEndpoint("https://cloud.appwrite.io/v1")
+  .setProject("647449f26e9ca9aadf03");
+
 export default function MyEvents() {
   const appwriteConfig = new AppwriteConfig();
+  const server = new ServerConfig();
 
   const [events, setEvents] = useState<Models.Document[]>();
   const [loader, setLoader] = useState(false);
@@ -18,17 +23,36 @@ export default function MyEvents() {
 
   useEffect(() => {
     setLoader(true);
-    const getEvents = appwriteConfig.databases.listDocuments(
-      `${process.env.NEXT_PUBLIC_DATABASEID}`,
-      `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
-    );
+    appwriteConfig.databases
+      .listDocuments(
+        `${process.env.NEXT_PUBLIC_DATABASEID}`,
+        `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
+      )
+      .then(
+        function (response) {
+          setEvents(response.documents);
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
 
-    getEvents.then(
-      function (response) {
-        setEvents(response.documents);
-      },
-      function (error) {
-        console.log(error);
+    const unsubscribe = client.subscribe(
+      `databases.${process.env.NEXT_PUBLIC_DATABASEID}.collections.${process.env.NEXT_PUBLIC_EVENT_COLLID}.documents`,
+      (response) => {
+        appwriteConfig.databases
+          .listDocuments(
+            `${process.env.NEXT_PUBLIC_DATABASEID}`,
+            `${process.env.NEXT_PUBLIC_EVENT_COLLID}`
+          )
+          .then(
+            function (response) {
+              setEvents(response.documents);
+            },
+            function (error) {
+              console.log(error);
+            }
+          );
       }
     );
 
@@ -97,14 +121,42 @@ export default function MyEvents() {
                             {JSON.parse(
                               localStorage.getItem("userInfo") || "{}"
                             ).$id === item.created ? (
-                              <button
-                                className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
-                                onClick={() => {
-                                  router.push(`/stats/${item.$id}`);
-                                }}
-                              >
-                                View Registrations
-                              </button>
+                              <div>
+                                <button
+                                  className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                                  onClick={() => {
+                                    router.push(`/stats/${item.$id}`);
+                                  }}
+                                >
+                                  View Registrations
+                                </button>
+                                <button
+                                  className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                                  onClick={() => {
+                                    server.databases
+                                      .deleteCollection(
+                                        `${process.env.NEXT_PUBLIC_REGDB}`,
+                                        `${item.$id}`
+                                      )
+                                      .then(() => {
+                                        server.databases
+                                          .deleteCollection(
+                                            `${process.env.NEXT_PUBLIC_SPODB}`,
+                                            `${item.$id}`
+                                          )
+                                          .then(() => {
+                                            appwriteConfig.databases.deleteDocument(
+                                              `${process.env.NEXT_PUBLIC_DATABASEID}`,
+                                              `${process.env.NEXT_PUBLIC_EVENT_COLLID}`,
+                                              `${item.$id}`
+                                            );
+                                          });
+                                      });
+                                  }}
+                                >
+                                  Delete Event
+                                </button>
+                              </div>
                             ) : (
                               <div></div>
                             )}
