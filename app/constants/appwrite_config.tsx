@@ -33,13 +33,9 @@ class ServerConfig {
       ])
       .then((res) => {
         this.databases.createStringAttribute(this.regDb, id, "name", 50, false);
-        this.databases.createStringAttribute(
-          this.regDb,
-          id,
-          "email",
-          50,
-          false
-        );
+        this.databases.createStringAttribute(this.regDb, id, "email", 50, false);
+        this.databases.createStringAttribute(this.regDb, id, "confirm", 50, false, "");
+        
       });
   }
 

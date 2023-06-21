@@ -159,6 +159,7 @@ export default function Event({ params }: { params: { event: string } }) {
                                 email: JSON.parse(
                                   localStorage.getItem("userInfo") || ""
                                 ).email,
+                                confirm: ""
                               }
                             )
                             .then((res) => {
