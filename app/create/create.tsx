@@ -12,28 +12,28 @@ interface Sponsors {
 }
 
 const CreateEventPage = () => {
-  const [eventname, setEventName] = useState("");
-  const [description, setDescription] = useState("");
+  const [eventname, setEventName] = useState(" ");
+  const [description, setDescription] = useState(" ");
   const [banner, setBanner] = useState<File | null>(null);
-  const [hostname, setHostName] = useState("");
-  const [eventdate, setEventDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
+  const [hostname, setHostName] = useState(" ");
+  const [eventdate, setEventDate] = useState(" ");
+  const [email, setEmail] = useState(" ");
+  const [country, setCountry] = useState(" ");
+  const [address, setAddress] = useState(" ");
+  const [city, setCity] = useState(" ");
   const [state, setState] = useState("");
-  const [postal, setPostal] = useState("");
-  const [audience, setAudience] = useState("");
+  const [postal, setPostal] = useState(" ");
+  const [audience, setAudience] = useState(" ");
   const [type, setType] = useState("In Person");
   const [attendees, setAttendees] = useState(0);
   const [price, setPrice] = useState(0);
   const [tech, setTech] = useState("Yes");
-  const [agenda, setAgenda] = useState("");
-  const [approval, setApproval] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [website, setWebsite] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [instagram, setInstagram] = useState("");
+  const [agenda, setAgenda] = useState(" ");
+  const [approval, setApproval] = useState(" ");
+  const [twitter, setTwitter] = useState(" ");
+  const [website, setWebsite] = useState(" ");
+  const [linkedin, setLinkedin] = useState(" ");
+  const [instagram, setInstagram] = useState(" ");
 
   const router = useRouter();
   const appwriteConfig = new AppwriteConfig();
@@ -189,6 +189,7 @@ const CreateEventPage = () => {
                         type="file"
                         accept="image/*"
                         onChange={handleBannerChange}
+                        pattern="/(\.jpg|\.jpeg|\.png|\.gif)$/i"
                         className="border-2 rounded-md w-full px-3 py-2 mt-1"
                       />
                     </div>
@@ -334,6 +335,9 @@ const CreateEventPage = () => {
                 <p className="block text-sm font-medium leading-6 text-gray-900 y-2">
                 Enter Sponsor&apos;s details
                 </p>
+                <p className="block text-sm font-medium leading-6 text-gray-600 y-2">
+                (Enter Link including https://)
+                </p>
               </div>
             </div>
             {sponsors.map((field) => (
@@ -355,6 +359,7 @@ const CreateEventPage = () => {
                     handleSponsorChange(field.id, "url", e.target.value)
                   }
                   placeholder="Sponsor Link"
+                  pattern="https://.*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="px-5">
@@ -442,6 +447,7 @@ const CreateEventPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -573,6 +579,7 @@ const CreateEventPage = () => {
                     value={twitter}
                     onChange={(e) => setTwitter(e.target.value)}
                     placeholder="https://www.twitter.com/"
+                    pattern="https://.*"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -592,6 +599,7 @@ const CreateEventPage = () => {
                     value={linkedin}
                     onChange={(e) => setLinkedin(e.target.value)}
                     placeholder="https://www.linkedin.com/"
+                    pattern="https://.*"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -611,6 +619,7 @@ const CreateEventPage = () => {
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
                     placeholder="https://coolwebsite.com/"
+                    pattern="https://.*"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -630,6 +639,7 @@ const CreateEventPage = () => {
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value)}
                     placeholder="https://www.instagram.com/"
+                    pattern="https://.*"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
