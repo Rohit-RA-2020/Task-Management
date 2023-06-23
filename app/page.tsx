@@ -66,7 +66,7 @@ export default function Home() {
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Wish to know how to host a great event?{" "}
               <a
-                href="https://medium.com/hackonhackathon/hackathon-to-dos-101-272485ba4a8c"
+                href="https://newsletter.oberai.dev/p/hacking-hackathon-organizing-101"
                 target="_blank"
                 className="font-semibold text-[#f02e65]"
               >
