@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import {AppwriteConfig} from "../constants/appwrite_config";
 import { useRouter } from "next/navigation";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import Header from "../components/header";
 
 interface Sponsors {
   id: number;
@@ -110,6 +111,8 @@ const CreateEventPage = () => {
   };
 
   return (
+    <div>
+      <Header />
     <div className="max-w-md mx-auto">
       <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
         Create Event
@@ -705,6 +708,7 @@ const CreateEventPage = () => {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 };

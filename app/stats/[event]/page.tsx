@@ -8,9 +8,6 @@ import CsvDownloader from "react-csv-downloader";
 
 import Header from "@/app/components/header";
 
-const client = new Client()
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("647449f26e9ca9aadf03");
 
 export default function Event({ params }: { params: { event: string } }) {
   const appwriteConfig = new AppwriteConfig();
@@ -74,7 +71,7 @@ export default function Event({ params }: { params: { event: string } }) {
         setEvent(response);
       }
     );
-    const unsubscribe = client.subscribe(
+    const unsubscribe = appwriteConfig.client.subscribe(
       `databases.${process.env.NEXT_PUBLIC_REGDB}.collections.${params["event"]}.documents`,
       (response) => {
         appwriteConfig.databases

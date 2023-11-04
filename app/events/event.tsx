@@ -8,9 +8,6 @@ import { MdOutlinePlace } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
-const client = new Client()
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("647449f26e9ca9aadf03");
 
 export default function EventListing() {
   const appwriteConfig = new AppwriteConfig();
@@ -37,7 +34,7 @@ export default function EventListing() {
         }
       );
 
-    const unsubscribe = client.subscribe(
+    const unsubscribe = appwriteConfig.client.subscribe(
       `databases.${process.env.NEXT_PUBLIC_DATABASEID}.collections.${process.env.NEXT_PUBLIC_EVENT_COLLID}.documents`,
       (response) => {
         appwriteConfig.databases

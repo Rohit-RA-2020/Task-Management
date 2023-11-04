@@ -14,13 +14,12 @@ class ServerConfig {
   regDb: string = `${process.env.NEXT_PUBLIC_REGDB}`;
   sponDb: string = `${process.env.NEXT_PUBLIC_SPODB}`;
   databases: sdk.Databases = new sdk.Databases(this.client);
-  key: string = `${process.env.NEXT_PUBLIC_DBKEY}`;
 
   constructor() {
     this.client
-      .setEndpoint("https://cloud.appwrite.io/v1")
-      .setProject("647449f26e9ca9aadf03")
-      .setKey(this.key);
+      .setEndpoint(`${process.env.NEXT_PUBLIC_ENDPOINT}`)
+      .setProject(`${process.env.NEXT_PUBLIC_PROJECTID}`)
+      .setKey(`${process.env.NEXT_PUBLIC_DBKEY}`);
   }
 
   createRegColl(id: string, name: string) {
@@ -81,8 +80,8 @@ class AppwriteConfig {
 
   constructor() {
     this.client
-      .setEndpoint("https://cloud.appwrite.io/v1")
-      .setProject("647449f26e9ca9aadf03");
+      .setEndpoint(`${process.env.NEXT_PUBLIC_ENDPOINT}`)
+      .setProject(`${process.env.NEXT_PUBLIC_PROJECTID}`);
   }
 
   googlelog(): void {
@@ -193,7 +192,7 @@ class AppwriteConfig {
             .createDocument(this.databaseId, this.activeCollId, ID.unique(), {
               eventname: eventname,
               description: description,
-              url: `https://cloud.appwrite.io/v1/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`,
+              url: `${process.env.NEXT_PUBLIC_ENDPOINT}/storage/buckets/${this.bannerBucketId}/files/${res.$id}/view?project=${process.env.NEXT_PUBLIC_PROJECTID}&mode=admin`,
               hostname: hostname,
               eventdate: eventdate,
               email: email,
