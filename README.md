@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Task-Management
+
+A modern event and task management application designed to streamline planning, execution, and attendee engagement for both online and in-person events.
+
+## Overview
+
+Task-Management (Event-Ally) is an intuitive platform where users can create, manage, and track events efficiently. The application is built with TypeScript and leverages [Appwrite](https://appwrite.io/) for backend services. It provides rich features for organizing events, tracking registrations, managing sponsors, and communicating with attendees.
+
+Live Demo: [https://eventally.vercel.app](https://eventally.vercel.app)
+
+## Features
+
+- **Event Creation:** Easily create events with detailed information including agenda, type (In Person/Online), pricing, technical requirements, and more.
+- **Sponsor Management:** Add sponsors for events with their details and URLs.
+- **Attendee Registration:** Collect attendee information and manage approvals for event participation.
+- **Social Connectivity:** Add social media links (Twitter, LinkedIn, Instagram, Website) for each event and host.
+- **Event Listing:** Browse all created events, view details, and delete events as needed.
+- **Statistics & Export:** View attendee stats per event and export registration data as CSV.
+- **Approval Workflow:** Accept or reject registrations, with automated email notifications to attendees.
+- **Responsive Design:** Mobile-friendly and optimized for all device sizes.
+
+## Technologies Used
+
+- **Frontend:** React, Next.js, TypeScript, Tailwind CSS
+- **Backend:** Appwrite
+- **Email Service:** SendGrid API (for notifications)
+- **Icons:** react-icons
+- **CSV Export:** Custom CSV downloader component
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Rohit-RA-2020/Task-Management.git
+   cd Task-Management
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Configure environment variables:**
+   - Create a `.env.local` file and add your Appwrite and SendGrid credentials.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+5. **Access the app:**
+   - Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Folder Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `app/create/` – Event creation form and logic
+- `app/events/` – Event listing and details
+- `app/stats/` – Attendee statistics and registration management
+- `app/constants/` – Appwrite configuration and constants
+- `app/components/` – Shared UI components (header, etc.)
+- `public/` – Static assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions are welcome! Please open issues or submit pull requests for improvements and new features.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project currently does not specify a license. Please contact the owner for usage details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Author
+
+- Rohit-RA-2020 ([GitHub Profile](https://github.com/Rohit-RA-2020))
